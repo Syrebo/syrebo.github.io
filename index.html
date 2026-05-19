@@ -101,8 +101,22 @@
     animation:spin 36s linear infinite;
   }
   @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
-  .hero-visual img{position:relative;width:min(360px,80%);filter:drop-shadow(0 36px 50px rgba(10,37,64,.26));animation:float 6s ease-in-out infinite}
-  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+  .glove-stage{
+    position:relative;width:min(420px,86%);aspect-ratio:.9;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:32px;
+    background:linear-gradient(170deg,#ffffff,#F4F8FF 70%);
+    border:1px solid rgba(255,255,255,.9);
+    box-shadow:0 40px 80px -34px rgba(11,59,176,.4),0 2px 0 rgba(255,255,255,.7) inset;
+  }
+  .glove-stage::after{
+    content:"";position:absolute;bottom:34px;left:50%;transform:translateX(-50%);
+    width:55%;height:26px;border-radius:50%;
+    background:radial-gradient(ellipse,rgba(11,59,176,.22),transparent 72%);
+    filter:blur(3px);
+  }
+  .hero-visual img{position:relative;z-index:1;width:80%;mix-blend-mode:multiply;filter:drop-shadow(0 26px 30px rgba(10,37,64,.20));animation:float 6s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
   .float-tag{
     position:absolute;background:#fff;border:1px solid var(--line);border-radius:14px;
     padding:12px 16px;box-shadow:var(--shadow-soft);font-size:13px;font-weight:600;
@@ -241,6 +255,19 @@
 
   .reveal{opacity:0;transform:translateY(28px);transition:.7s cubic-bezier(.2,.7,.2,1)}
   .reveal.in{opacity:1;transform:none}
+
+  /* PREMIUM POLISH */
+  header{transition:box-shadow .3s,background .3s}
+  header.scrolled{box-shadow:0 10px 30px -20px rgba(10,37,64,.28)}
+  .btn-primary{background:linear-gradient(180deg,#1A5BEA,#1148CE);box-shadow:0 12px 26px -12px rgba(20,82,230,.55),0 1px 0 rgba(255,255,255,.25) inset}
+  .btn-primary:hover{background:linear-gradient(180deg,#1550DA,#0E3FBE)}
+  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid rgba(20,82,230,.45);outline-offset:2px;border-radius:8px}
+  .field.err input{border-color:#E0506B;background:#FFF6F7}
+  .field .msg{display:none;color:#D33A57;font-size:12.5px;margin-top:7px;font-weight:600}
+  .field.err .msg{display:block}
+  .res-card{animation:popIn .55s cubic-bezier(.18,.9,.25,1.1)}
+  @keyframes popIn{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -280,7 +307,9 @@
     <div class="hero-visual">
       <div class="halo"></div>
       <div class="ring"></div>
-      <img src="assets/glove.png" alt="Syrebo rehabilitation robot glove" />
+      <div class="glove-stage">
+        <img src="assets/glove.png" alt="Syrebo rehabilitation robot glove" />
+      </div>
       <div class="float-tag t1"><i></i> Clinically informed sizing</div>
       <div class="float-tag t2"><i></i> Adult · Kid · Toddler</div>
     </div>
@@ -358,13 +387,15 @@
         </div>
 
         <div class="row2">
-          <div class="field">
+          <div class="field" id="fLen">
             <label for="len">Hand length (mm)</label>
             <input id="len" type="number" min="0" placeholder="e.g. 185" />
+            <div class="msg">Enter a valid hand length in mm.</div>
           </div>
-          <div class="field">
+          <div class="field" id="fWid">
             <label for="wid">Hand width (mm)</label>
             <input id="wid" type="number" min="0" placeholder="e.g. 92" />
+            <div class="msg">Enter a valid hand width in mm.</div>
           </div>
         </div>
 
@@ -559,10 +590,11 @@
   function recommend(){
     const len=parseFloat(document.getElementById("len").value);
     const wid=parseFloat(document.getElementById("wid").value);
-    if(!len||!wid||len<=0||wid<=0){
-      alert("Please enter a valid hand length and hand width in millimetres.");
-      return;
-    }
+    const fLen=document.getElementById("fLen"), fWid=document.getElementById("fWid");
+    const badL=!(len>0), badW=!(wid>0);
+    fLen.classList.toggle("err",badL);
+    fWid.classList.toggle("err",badW);
+    if(badL||badW){ (badL?document.getElementById("len"):document.getElementById("wid")).focus(); return; }
     const list=SIZES[group];
     let best=null,bestScore=Infinity,exact=false;
     list.forEach(o=>{
@@ -586,6 +618,13 @@
     document.getElementById("resCard").scrollIntoView({behavior:"smooth",block:"nearest"});
   }
   document.getElementById("calcBtn").addEventListener("click",recommend);
+  ["len","wid","height","weight"].forEach(id=>{
+    const el=document.getElementById(id);
+    el.addEventListener("keydown",e=>{ if(e.key==="Enter") recommend(); });
+    el.addEventListener("input",()=>el.closest(".field").classList.remove("err"));
+  });
+  const hdr=document.querySelector("header");
+  addEventListener("scroll",()=>hdr.classList.toggle("scrolled",scrollY>10),{passive:true});
 
   // charts tabs
   document.querySelectorAll("#chartTabs button").forEach(b=>{

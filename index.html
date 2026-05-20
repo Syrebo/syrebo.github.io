@@ -124,7 +124,22 @@
     .hero-visual{order:-1;margin-bottom:8px}
   }
 
-  /* SECTION HEAD */
+  /* STEP INDICATOR */
+  .step-label{
+    display:flex;align-items:center;gap:14px;margin-bottom:28px;
+  }
+  .step-num{
+    width:44px;height:44px;border-radius:50%;
+    background:var(--blue);color:#fff;
+    font-family:"Sora",sans-serif;font-weight:700;font-size:18px;
+    display:grid;place-items:center;flex-shrink:0;
+    box-shadow:0 6px 18px -6px rgba(20,82,230,.5);
+  }
+  .step-label h2{
+    font-size:clamp(24px,3.2vw,36px);font-weight:700;color:var(--navy);margin:0;
+  }
+
+  /* SECTION HEAD (hero/standalone) */
   .sec-head{max-width:680px;margin:0 auto 60px;text-align:center}
   .sec-head h2{font-size:clamp(30px,4vw,46px);font-weight:700;color:var(--navy);margin:18px 0 14px}
   .sec-head p{color:var(--muted);font-size:17px}
@@ -197,8 +212,10 @@
   .res-note{margin-top:24px;font-size:13px;color:#9FBCF0;background:rgba(255,255,255,.07);padding:13px 16px;border-radius:12px;display:flex;gap:10px}
   @media(max-width:860px){.finder-grid{grid-template-columns:1fr}}
 
-  /* CHARTS */
-  #charts{background:var(--blue-tint-2)}
+  /* CHARTS — seamless continuation of finder section */
+  #charts{background:var(--white)}
+  .charts-head{text-align:center;margin-bottom:28px}
+  .charts-head p{color:var(--muted);font-size:15px;font-style:italic}
   .tabs{display:flex;gap:10px;justify-content:center;margin-bottom:34px;flex-wrap:wrap}
   .tabs button{
     font-family:"Sora",sans-serif;font-weight:600;font-size:15px;cursor:pointer;
@@ -294,10 +311,9 @@
 <!-- MEASURE -->
 <section id="measure">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">How to Measure</span>
-      <h2>Two quick measurements</h2>
-      <p>Grab a ruler or tape measure. Measure your dominant rehabilitation hand flat and relaxed for the most accurate result.</p>
+    <div class="step-label reveal">
+      <div class="step-num">1</div>
+      <h2>How to Measure</h2>
     </div>
     <div class="measure-grid">
       <div class="m-card reveal">
@@ -323,10 +339,9 @@
 <!-- FINDER -->
 <section id="finder">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Size Finder</span>
-      <h2>Enter your measurements</h2>
-      <p>Fill in the details below and your recommended Syrebo glove size appears instantly.</p>
+    <div class="step-label reveal">
+      <div class="step-num">2</div>
+      <h2>Enter Your Measurements</h2>
     </div>
     <div class="finder-grid reveal">
       <div class="finder-form">
@@ -389,13 +404,11 @@
   </div>
 </section>
 
-<!-- CHARTS -->
-<section id="charts">
+<!-- CHARTS — flows directly below Step 2, same bg, no step number -->
+<section id="charts" style="padding-top:0">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Size Charts</span>
-      <h2>Full sizing reference</h2>
-      <p>Complete hand measurement ranges across all sizes.</p>
+    <div class="charts-head reveal">
+      <p>Not sure about your measurements? Use the full reference table below.</p>
     </div>
     <div class="reveal">
       <div class="table-wrap" style="max-width:840px;margin:0 auto">

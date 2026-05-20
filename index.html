@@ -4,417 +4,398 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Syrebo · Find Your Perfect Fit</title>
-<meta name="description" content="Syrebo smart sizing tool — enter a few hand measurements and get a personalized rehabilitation glove size in seconds." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --navy:#0A2540;
-    --ink:#11233b;
-    --blue:#1452E6;
-    --blue-deep:#0B3BB0;
-    --blue-tint:#EAF1FE;
-    --blue-tint-2:#F4F8FF;
-    --line:#E3EAF5;
-    --muted:#5C7088;
-    --white:#ffffff;
-    --radius:20px;
+    --navy:#0A2540; --blue:#1452E6; --blue-deep:#0B3BB0;
+    --blue-tint:#EAF1FE; --blue-tint-2:#F4F8FF;
+    --line:#E3EAF5; --muted:#5C7088; --ink:#11233b;
     --shadow:0 18px 50px -22px rgba(20,82,230,.32);
-    --shadow-soft:0 10px 30px -16px rgba(10,37,64,.18);
-    --maxw:1180px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{font-family:"Manrope",system-ui,sans-serif;color:var(--ink);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  h1,h2,h3,.display{font-family:"Sora",sans-serif;letter-spacing:-.02em;line-height:1.08}
-  a{color:inherit;text-decoration:none}
+  html,body{height:100%;overflow:hidden;font-family:"Manrope",sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:"Sora",sans-serif;letter-spacing:-.02em}
   img{max-width:100%;display:block}
-  .wrap{max-width:var(--maxw);margin:0 auto}
-  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:"Sora",sans-serif;font-weight:600;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);background:var(--blue-tint);padding:8px 16px;border-radius:999px}
-  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--blue)}
-  .btn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-family:"Sora",sans-serif;font-weight:600;font-size:15px;padding:15px 28px;border-radius:999px;border:0;transition:.25s}
-  .btn-primary{background:linear-gradient(180deg,#1A5BEA,#1148CE);color:#fff;box-shadow:0 12px 26px -12px rgba(20,82,230,.55),0 1px 0 rgba(255,255,255,.25) inset}
-  .btn-primary:hover{background:linear-gradient(180deg,#1550DA,#0E3FBE);transform:translateY(-2px)}
+  a{color:inherit;text-decoration:none}
+
+  /* ── DECK CONTAINER ── */
+  .deck{position:fixed;inset:0;display:flex;flex-direction:column}
+
+  /* ── TOP BAR ── */
+  .topbar{
+    flex-shrink:0;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 32px;height:62px;
+    background:rgba(255,255,255,.95);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);z-index:10;
+  }
+  .logo img{height:36px;width:auto}
+  .badges img{height:44px;width:auto;opacity:.92}
+  @media(max-width:640px){.badges{display:none}}
+
+  /* ── SLIDE AREA ── */
+  .slides{flex:1;position:relative;overflow:hidden}
+  .slide{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:24px 32px;
+    opacity:0;pointer-events:none;
+    transition:opacity .45s ease, transform .45s ease;
+    transform:translateX(60px);
+  }
+  .slide.active{opacity:1;pointer-events:auto;transform:translateX(0)}
+  .slide.exit-left{opacity:0;transform:translateX(-60px)}
+
+  /* Slide backgrounds */
+  .slide-hero{background:linear-gradient(160deg,var(--blue-tint-2) 0%,#fff 60%)}
+  .slide-measure{background:var(--blue-tint-2)}
+  .slide-input{background:#fff}
+  .slide-result{background:linear-gradient(160deg,var(--navy) 0%,var(--blue-deep) 100%);color:#fff}
+
+  /* ── BOTTOM NAV ── */
+  .botnav{
+    flex-shrink:0;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 32px;height:68px;
+    background:rgba(255,255,255,.95);backdrop-filter:blur(12px);
+    border-top:1px solid var(--line);
+  }
+  .dots{display:flex;gap:8px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--line);transition:.3s;cursor:pointer}
+  .dot.active{background:var(--blue);width:22px;border-radius:4px}
+  .btn{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-family:"Sora",sans-serif;font-weight:600;font-size:14px;padding:12px 24px;border-radius:999px;border:0;transition:.22s}
+  .btn-primary{background:linear-gradient(180deg,#1A5BEA,#1148CE);color:#fff;box-shadow:0 8px 20px -8px rgba(20,82,230,.55)}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 12px 24px -10px rgba(20,82,230,.6)}
   .btn-ghost{background:transparent;color:var(--navy);border:1.5px solid var(--line)}
   .btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+  .btn-white{background:#fff;color:var(--blue);border:1.5px solid rgba(255,255,255,.3)}
+  .btn-white:hover{background:var(--blue-tint)}
+  .nav-right{display:flex;gap:10px;align-items:center}
 
-  /* NAV */
-  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:box-shadow .3s}
-  header.scrolled{box-shadow:0 10px 30px -20px rgba(10,37,64,.28)}
-  .nav{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 24px}
-  .logo{display:inline-block;line-height:0}
-  .logo img{height:38px;width:auto;display:block}
-  .nav-badges img{height:52px;width:auto;display:block;opacity:.9}
-  @media(max-width:700px){.nav-badges{display:none}}
-
-  /* HERO */
-  .hero{position:relative;overflow:hidden;padding:clamp(56px,7vw,96px) 24px}
-  .hero::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(900px 540px at 88% 18%,rgba(20,82,230,.14),transparent 60%),radial-gradient(640px 440px at 6% 92%,rgba(20,82,230,.08),transparent 60%),linear-gradient(180deg,var(--blue-tint-2),#fff 70%)}
-  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
-  .hero h1{font-size:clamp(38px,5.6vw,68px);font-weight:800;color:var(--navy);margin:22px 0 20px}
-  .hero h1 em{font-style:normal;color:var(--blue);position:relative}
-  .hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:10px;background:rgba(20,82,230,.16);z-index:-1;border-radius:4px}
-  .hero p{font-size:clamp(16px,1.5vw,19px);color:var(--muted);max-width:520px;margin-bottom:34px}
-  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  /* ── SLIDE 1: HERO ── */
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;max-width:1060px;width:100%}
+  .hero-text .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:"Sora",sans-serif;font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);background:var(--blue-tint);padding:7px 14px;border-radius:999px;margin-bottom:18px}
+  .hero-text .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue)}
+  .hero-text h1{font-size:clamp(30px,4.2vw,56px);font-weight:800;color:var(--navy);line-height:1.1;margin-bottom:16px}
+  .hero-text h1 em{font-style:normal;color:var(--blue)}
+  .hero-text p{font-size:clamp(14px,1.3vw,17px);color:var(--muted);line-height:1.65;max-width:460px;margin-bottom:28px}
   .hero-visual{position:relative;display:flex;justify-content:center}
-  .hero-visual .halo{position:absolute;width:108%;aspect-ratio:1;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(20,82,230,.16),transparent 62%)}
-  .hero-visual .ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:86%;aspect-ratio:1;border:1.5px dashed rgba(20,82,230,.32);border-radius:50%;animation:spin 36s linear infinite}
+  .hero-visual .halo{position:absolute;width:110%;aspect-ratio:1;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(20,82,230,.14),transparent 62%)}
+  .hero-visual .ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:84%;aspect-ratio:1;border:1.5px dashed rgba(20,82,230,.3);border-radius:50%;animation:spin 36s linear infinite}
   @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
-  .glove-stage{position:relative;width:min(420px,82%);animation:float 6s ease-in-out infinite;filter:drop-shadow(0 36px 50px rgba(11,59,176,.28))}
-  .glove-stage img{position:relative;z-index:1;width:100%;height:auto;display:block}
-  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;text-align:center}.hero p{margin-left:auto;margin-right:auto}.hero-cta{justify-content:center}.hero-visual{order:-1;margin-bottom:8px}}
+  .glove-img{width:min(320px,72%);filter:drop-shadow(0 28px 40px rgba(11,59,176,.28));animation:float 6s ease-in-out infinite;position:relative;z-index:1}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @media(max-width:760px){.hero-grid{grid-template-columns:1fr;text-align:center}.hero-text p{margin-left:auto;margin-right:auto}.hero-visual{order:-1}.glove-img{width:min(220px,55%)}}
 
-  /* WIZARD */
-  #wizard{padding:clamp(48px,7vw,96px) 24px}
-  .wiz-card{max-width:860px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}
+  /* ── SLIDE 2: MEASURE ── */
+  .measure-wrap{max-width:880px;width:100%}
+  .slide-title{font-size:clamp(20px,2.8vw,34px);font-weight:700;color:var(--navy);margin-bottom:6px}
+  .slide-sub{color:var(--muted);font-size:14px;margin-bottom:24px}
+  .m-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .m-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
+  .m-num{width:34px;height:34px;border-radius:9px;background:var(--blue);color:#fff;font-family:"Sora",sans-serif;font-weight:700;font-size:15px;display:grid;place-items:center;flex-shrink:0}
+  .m-fig{width:100%;background:var(--blue-tint);border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:center}
+  .m-fig img{width:100%;max-width:260px;height:auto}
+  .m-card h3{font-size:17px;color:var(--navy);margin-bottom:4px}
+  .m-card p{color:var(--muted);font-size:13px}
+  @media(max-width:600px){.m-grid{grid-template-columns:1fr}}
 
-  /* Progress header */
-  .wiz-header{background:var(--navy);padding:28px 40px;display:flex;align-items:center;gap:0}
-  .wiz-pill{display:flex;align-items:center;gap:10px;flex:1}
-  .wiz-pill-num{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.18);color:rgba(255,255,255,.55);font-family:"Sora",sans-serif;font-weight:700;font-size:14px;display:grid;place-items:center;flex-shrink:0;transition:.3s}
-  .wiz-pill-lbl{font-family:"Sora",sans-serif;font-size:13px;font-weight:600;color:rgba(255,255,255,.45);transition:.3s;white-space:nowrap}
-  .wiz-pill.active .wiz-pill-num{background:var(--blue);color:#fff;box-shadow:0 4px 14px rgba(20,82,230,.5)}
-  .wiz-pill.active .wiz-pill-lbl{color:#fff}
-  .wiz-pill.done .wiz-pill-num{background:rgba(255,255,255,.25);color:#fff}
-  .wiz-pill.done .wiz-pill-lbl{color:rgba(255,255,255,.65)}
-  .wiz-connector{flex:1;height:1px;background:rgba(255,255,255,.15);max-width:60px}
-  @media(max-width:600px){.wiz-pill-lbl{display:none}.wiz-connector{max-width:24px}}
-
-  /* Step panels */
-  .wiz-body{padding:clamp(28px,4vw,48px) clamp(24px,4vw,48px)}
-  .wiz-panel{display:none}
-  .wiz-panel.active{display:block;animation:fadeUp .35s ease}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-  .wiz-title{font-size:clamp(22px,3vw,32px);font-weight:700;color:var(--navy);margin-bottom:8px}
-  .wiz-sub{color:var(--muted);font-size:15px;margin-bottom:32px}
-
-  /* Step nav */
-  .wiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:36px;padding-top:28px;border-top:1px solid var(--line)}
-
-  /* Measurement cards */
-  .measure-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:8px}
-  .m-card{background:var(--blue-tint-2);border:1px solid var(--line);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px}
-  .m-num{width:38px;height:38px;border-radius:10px;background:var(--blue);color:#fff;font-family:"Sora",sans-serif;font-weight:700;font-size:16px;display:grid;place-items:center}
-  .m-fig{width:100%;background:#fff;border-radius:14px;padding:20px;display:flex;align-items:center;justify-content:center}
-  .m-fig img{width:100%;max-width:320px;height:auto;display:block}
-  .m-card h3{font-size:20px;color:var(--navy);margin-bottom:6px}
-  .m-card p{color:var(--muted);font-size:14.5px}
-  @media(max-width:600px){.measure-grid{grid-template-columns:1fr}}
-
-  /* Form */
-  .field{margin-bottom:18px}
-  .field label{display:block;font-family:"Sora",sans-serif;font-weight:600;font-size:13px;color:var(--ink);margin-bottom:8px}
-  .field label .hint{font-style:normal;font-weight:600;font-size:11px;color:var(--blue);background:var(--blue-tint);padding:3px 9px;border-radius:999px;margin-left:7px}
-  .field input{width:100%;padding:13px 16px;border:1.5px solid var(--line);border-radius:13px;font-family:"Manrope",sans-serif;font-size:15px;color:var(--ink);background:#fff;transition:.2s}
-  .field input:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 4px rgba(20,82,230,.12)}
+  /* ── SLIDE 3: INPUT ── */
+  .input-wrap{max-width:760px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+  @media(max-width:640px){.input-wrap{grid-template-columns:1fr}}
+  .form-side{}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-family:"Sora",sans-serif;font-weight:600;font-size:12.5px;color:var(--ink);margin-bottom:7px}
+  .hint{font-style:normal;font-weight:600;font-size:10.5px;color:var(--blue);background:var(--blue-tint);padding:2px 8px;border-radius:999px;margin-left:6px}
+  .field input{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;font-family:"Manrope",sans-serif;font-size:14px;color:var(--ink);background:#fff;transition:.2s}
+  .field input:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 3px rgba(20,82,230,.12)}
   .field.err input{border-color:#E0506B;background:#FFF6F7}
-  .field .msg{display:none;color:#D33A57;font-size:12px;margin-top:6px;font-weight:600}
+  .field .msg{display:none;color:#D33A57;font-size:11.5px;margin-top:5px;font-weight:600}
   .field.err .msg{display:block}
-  .orline{display:flex;align-items:center;gap:12px;margin:20px 0 16px;color:var(--muted);font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+  .orline{display:flex;align-items:center;gap:10px;margin:16px 0 12px;color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
   .orline::before,.orline::after{content:"";flex:1;height:1px;background:var(--line)}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .form-cols{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
-  @media(max-width:640px){.form-cols{grid-template-columns:1fr}}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .hint-side{background:var(--blue-tint-2);border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;text-align:center;min-height:220px}
+  .hint-side p{color:var(--muted);font-size:13px;max-width:200px}
 
-  /* Step 3 result */
-  .step3-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
-  @media(max-width:640px){.step3-grid{grid-template-columns:1fr}}
-  .result-box{background:linear-gradient(160deg,var(--navy),#0B3BB0 130%);border-radius:20px;padding:36px;color:#fff;position:relative;overflow:hidden}
-  .result-box::after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%);top:-80px;right:-60px}
-  .res-tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9FBCF0;font-family:"Sora",sans-serif;font-weight:600}
-  .res-size{font-family:"Sora",sans-serif;font-size:clamp(56px,9vw,88px);font-weight:800;line-height:1;margin:10px 0 4px}
-  .res-cat{font-size:16px;color:#CDDCF6;margin-bottom:22px}
-  .res-meta{display:flex;flex-direction:column;gap:10px;border-top:1px solid rgba(255,255,255,.16);padding-top:20px}
-  .res-meta .r{display:flex;justify-content:space-between;font-size:14px}
-  .res-meta .r span{color:#9FBCF0}
-  .res-meta .r b{font-family:"Sora",sans-serif}
-  .res-note{margin-top:20px;font-size:12.5px;color:#9FBCF0;background:rgba(255,255,255,.07);padding:12px 14px;border-radius:11px;display:flex;gap:9px}
-  .ref-label{font-family:"Sora",sans-serif;font-weight:700;font-size:15px;color:var(--navy);margin-bottom:14px}
+  /* ── SLIDE 4: RESULT ── */
+  .result-wrap{max-width:860px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+  @media(max-width:640px){.result-wrap{grid-template-columns:1fr}}
+  .result-box{position:relative}
+  .res-label{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#9FBCF0;font-family:"Sora",sans-serif;font-weight:600}
+  .res-size{font-family:"Sora",sans-serif;font-size:clamp(52px,8vw,84px);font-weight:800;line-height:1;margin:8px 0 2px}
+  .res-cat{font-size:15px;color:#CDDCF6;margin-bottom:20px}
+  .res-divider{height:1px;background:rgba(255,255,255,.16);margin-bottom:16px}
+  .res-row{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:10px}
+  .res-row span{color:#9FBCF0}
+  .res-row b{font-family:"Sora",sans-serif}
+  .res-note{margin-top:16px;font-size:12px;color:#9FBCF0;background:rgba(255,255,255,.08);padding:11px 14px;border-radius:10px;display:flex;gap:8px}
+  .ref-side{}
+  .ref-label{font-family:"Sora",sans-serif;font-weight:700;font-size:14px;color:rgba(255,255,255,.8);margin-bottom:12px}
   table{width:100%;border-collapse:collapse}
-  .table-wrap{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-soft)}
-  thead th{background:var(--navy);color:#fff;font-family:"Sora",sans-serif;font-weight:600;font-size:13px;padding:15px 18px;text-align:left}
-  tbody td{padding:13px 18px;border-bottom:1px solid var(--line);font-size:14.5px}
-  tbody tr:last-child td{border-bottom:0}
-  tbody tr:hover{background:var(--blue-tint)}
-  tbody td:first-child{font-family:"Sora",sans-serif;font-weight:700;color:var(--blue);font-size:15px}
-
-  /* Footer */
-  footer{padding:40px 24px;border-top:1px solid var(--line)}
-  .foot{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-  .foot p{color:var(--muted);font-size:13.5px}
-  .foot-tag{max-width:420px;text-align:center;flex:1}
-  .foot .logo img{height:32px}
-
-  a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(20,82,230,.45);outline-offset:2px;border-radius:8px}
-  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  .tbl-wrap{border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.15)}
+  .tbl-wrap thead th{background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);font-family:"Sora",sans-serif;font-weight:600;font-size:12px;padding:11px 14px;text-align:left}
+  .tbl-wrap tbody td{padding:9px 14px;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;color:rgba(255,255,255,.85)}
+  .tbl-wrap tbody tr:last-child td{border-bottom:0}
+  .tbl-wrap tbody tr.highlight td{background:rgba(255,255,255,.12);color:#fff;font-weight:700}
+  .tbl-wrap tbody td:first-child{font-family:"Sora",sans-serif;font-weight:700;color:#7eb3ff}
+  .tbl-wrap tbody tr.highlight td:first-child{color:#fff}
 </style>
 </head>
 <body>
 
-<header>
-  <nav class="nav">
-    <a href="/" class="logo" aria-label="Syrebo home"><img src="assets/logo.png" alt="Syrebo" /></a>
-    <div class="nav-badges"><img src="assets/trust-badges.png" alt="80+ countries · 4000+ medical units · 60000+ families" /></div>
-  </nav>
-</header>
+<div class="deck">
 
-<!-- HERO -->
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <span class="eyebrow">Smart Sizing Tool</span>
-      <h1>Find Your <em>Perfect Fit</em> with Syrebo</h1>
-      <p>Enter your hand measurements and get the right Syrebo rehabilitation glove size in seconds — a precise, comfortable fit for every hand, from children to adults.</p>
-      <div class="hero-cta">
-        <a href="#wizard" class="btn btn-primary" id="heroStart">Start Sizing
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <a href="/" class="logo"><img src="assets/logo.png" alt="Syrebo" /></a>
+    <div class="badges"><img src="assets/trust-badges.png" alt="80+ countries · 4000+ medical units · 60000+ families" /></div>
+  </div>
+
+  <!-- SLIDES -->
+  <div class="slides" id="slides">
+
+    <!-- SLIDE 1: HERO -->
+    <div class="slide slide-hero active" id="slide0">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <div class="eyebrow">Smart Sizing Tool</div>
+          <h1>Find Your <em>Perfect Fit</em><br>with Syrebo</h1>
+          <p>Enter your hand measurements and get the right Syrebo rehabilitation glove size in seconds — a precise, comfortable fit for every hand.</p>
+          <button class="btn btn-primary" onclick="goSlide(1)">Get Started
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="hero-visual">
+          <div class="halo"></div>
+          <div class="ring"></div>
+          <img class="glove-img" src="assets/hero-glove.png" alt="Syrebo glove" />
+        </div>
       </div>
     </div>
-    <div class="hero-visual">
-      <div class="halo"></div>
-      <div class="ring"></div>
-      <div class="glove-stage">
-        <img src="assets/hero-glove.png" alt="Syrebo rehabilitation glove" />
+
+    <!-- SLIDE 2: HOW TO MEASURE -->
+    <div class="slide slide-measure" id="slide1">
+      <div class="measure-wrap">
+        <h2 class="slide-title">Step 1 — How to Measure</h2>
+        <p class="slide-sub">Grab a ruler or tape measure. Keep the hand flat and relaxed.</p>
+        <div class="m-grid">
+          <div class="m-card">
+            <div class="m-num">1</div>
+            <div class="m-fig"><img src="assets/hand-length.png" alt="Hand length" /></div>
+            <div>
+              <h3>Hand Length</h3>
+              <p>From the tip of the middle finger straight down to the wrist crease.</p>
+            </div>
+          </div>
+          <div class="m-card">
+            <div class="m-num">2</div>
+            <div class="m-fig"><img src="assets/hand-width.png" alt="Hand width" /></div>
+            <div>
+              <h3>Hand Width</h3>
+              <p>Across the widest part of the palm at the metacarpal knuckles.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- WIZARD -->
-<section id="wizard">
-  <div class="wrap">
-    <div class="wiz-card">
-
-      <!-- Progress header -->
-      <div class="wiz-header">
-        <div class="wiz-pill active" id="pill1">
-          <div class="wiz-pill-num">1</div>
-          <span class="wiz-pill-lbl">How to Measure</span>
+    <!-- SLIDE 3: INPUT -->
+    <div class="slide slide-input" id="slide2">
+      <div class="input-wrap">
+        <div class="form-side">
+          <h2 class="slide-title" style="color:var(--navy)">Step 2 — Your Measurements</h2>
+          <p class="slide-sub">Enter both measurements for the most accurate result.</p>
+          <div class="field" id="fLen">
+            <label for="len">Hand length (mm) <em class="hint">Required</em></label>
+            <input id="len" type="number" min="0" placeholder="e.g. 185" />
+            <div class="msg">Please enter your hand length.</div>
+          </div>
+          <div class="field" id="fWid">
+            <label for="wid">Hand width (mm) <em class="hint">Required</em></label>
+            <input id="wid" type="number" min="0" placeholder="e.g. 92" />
+            <div class="msg">Please enter your hand width.</div>
+          </div>
+          <div class="orline"><span>or estimate from</span></div>
+          <div class="row2">
+            <div class="field">
+              <label for="height">Height (cm) <em class="hint">optional</em></label>
+              <input id="height" type="number" min="0" placeholder="e.g. 170" />
+            </div>
+            <div class="field">
+              <label for="weight">Weight (kg) <em class="hint">optional</em></label>
+              <input id="weight" type="number" min="0" placeholder="e.g. 65" />
+            </div>
+          </div>
         </div>
-        <div class="wiz-connector"></div>
-        <div class="wiz-pill" id="pill2">
-          <div class="wiz-pill-num">2</div>
-          <span class="wiz-pill-lbl">Measurements</span>
-        </div>
-        <div class="wiz-connector"></div>
-        <div class="wiz-pill" id="pill3">
-          <div class="wiz-pill-num">3</div>
-          <span class="wiz-pill-lbl">Your Size</span>
+        <div class="hint-side">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="var(--blue)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" stroke="var(--blue)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".4"/></svg>
+          <p>Fill in your measurements on the left, then click <strong>Get My Size</strong> to see your result.</p>
         </div>
       </div>
+    </div>
 
-      <div class="wiz-body">
-
-        <!-- STEP 1 -->
-        <div class="wiz-panel active" id="step1">
-          <h2 class="wiz-title">How to Measure</h2>
-          <p class="wiz-sub">Grab a ruler or tape measure. Measure the rehabilitation hand flat and relaxed.</p>
-          <div class="measure-grid">
-            <div class="m-card">
-              <div class="m-num">1</div>
-              <div class="m-fig"><img src="assets/hand-length.png" alt="Hand length measurement" /></div>
-              <div>
-                <h3>Hand Length</h3>
-                <p>Measure vertically from the tip of the middle finger straight down to the wrist crease.</p>
-              </div>
-            </div>
-            <div class="m-card">
-              <div class="m-num">2</div>
-              <div class="m-fig"><img src="assets/hand-width.png" alt="Hand width measurement" /></div>
-              <div>
-                <h3>Hand Width</h3>
-                <p>Measure across the widest part of the palm, at the knuckles of the metacarpal joints.</p>
-              </div>
-            </div>
-          </div>
-          <div class="wiz-nav">
-            <div></div>
-            <button class="btn btn-primary" onclick="goStep(2)">Next — Enter Measurements
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
+    <!-- SLIDE 4: RESULT -->
+    <div class="slide slide-result" id="slide3">
+      <div class="result-wrap">
+        <div class="result-box">
+          <div class="res-label">Recommended size</div>
+          <div class="res-size" id="resSize">—</div>
+          <div class="res-cat" id="resCat"></div>
+          <div class="res-divider"></div>
+          <div class="res-row"><span>Hand length</span><b id="rLen">—</b></div>
+          <div class="res-row"><span>Hand width</span><b id="rWid">—</b></div>
+          <div class="res-row"><span>Fit confidence</span><b id="rConf">—</b></div>
+          <div class="res-note">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><circle cx="12" cy="12" r="9" stroke="#9FBCF0" stroke-width="1.6"/><path d="M12 8h.01M11 12h1v4h1" stroke="#9FBCF0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="rNote"></span>
           </div>
         </div>
-
-        <!-- STEP 2 -->
-        <div class="wiz-panel" id="step2">
-          <h2 class="wiz-title">Enter Your Measurements</h2>
-          <p class="wiz-sub">Fill in your hand measurements below to get your recommended size instantly.</p>
-          <div class="form-cols">
-            <div>
-              <div class="field" id="fLen">
-                <label for="len">Hand length (mm) <em class="hint">Required</em></label>
-                <input id="len" type="number" min="0" placeholder="e.g. 185" />
-                <div class="msg">Please enter your hand length.</div>
-              </div>
-              <div class="field" id="fWid">
-                <label for="wid">Hand width (mm) <em class="hint">Required</em></label>
-                <input id="wid" type="number" min="0" placeholder="e.g. 92" />
-                <div class="msg">Please enter your hand width.</div>
-              </div>
-              <div class="orline"><span>optional — estimate from</span></div>
-              <div class="row2">
-                <div class="field">
-                  <label for="height">Height (cm) <em class="hint">optional</em></label>
-                  <input id="height" type="number" min="0" placeholder="e.g. 170" />
-                </div>
-                <div class="field">
-                  <label for="weight">Weight (kg) <em class="hint">optional</em></label>
-                  <input id="weight" type="number" min="0" placeholder="e.g. 65" />
-                </div>
-              </div>
-            </div>
-            <div class="m-card" style="justify-content:center;min-height:220px;background:var(--blue-tint-2)">
-              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" style="opacity:.35"><path d="M9 11l3 3L22 4" stroke="var(--blue)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" stroke="var(--blue)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <p style="color:var(--muted);font-size:14px;text-align:center;max-width:200px">Fill in your measurements and click <strong>Get My Size</strong></p>
-            </div>
-          </div>
-          <div class="wiz-nav">
-            <button class="btn btn-ghost" onclick="goStep(1)">← Back</button>
-            <button class="btn btn-primary" id="calcBtn">Get My Size
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
+        <div class="ref-side">
+          <p class="ref-label">Full size reference</p>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Size</th><th>Hand Length (mm)</th><th>Hand Width (mm)</th></tr></thead>
+              <tbody id="refTbody">
+                <tr data-s="XL"><td>XL</td><td>195 – 210</td><td>100 – 115</td></tr>
+                <tr data-s="L"><td>L</td><td>180 – 198</td><td>90 – 105</td></tr>
+                <tr data-s="M"><td>M</td><td>160 – 185</td><td>80 – 95</td></tr>
+                <tr data-s="S"><td>S</td><td>145 – 165</td><td>70 – 80</td></tr>
+                <tr data-s="12"><td>12</td><td>138 – 153</td><td>65 – 72</td></tr>
+                <tr data-s="9"><td>9</td><td>126 – 145</td><td>60 – 67</td></tr>
+                <tr data-s="7"><td>7</td><td>119 – 135</td><td>55 – 62</td></tr>
+                <tr data-s="5"><td>5</td><td>108 – 126</td><td>50 – 57</td></tr>
+                <tr data-s="3"><td>3</td><td>100 – 115</td><td>48 – 55</td></tr>
+                <tr data-s="1.5"><td>1.5</td><td>85 – 95</td><td>40 – 48</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- STEP 3 -->
-        <div class="wiz-panel" id="step3">
-          <h2 class="wiz-title">Your Recommended Size</h2>
-          <p class="wiz-sub">Based on your measurements, here is the best-fit Syrebo glove size for you.</p>
-          <div class="step3-grid">
-            <div class="result-box">
-              <div class="res-tag">Recommended size</div>
-              <div class="res-size" id="resSize">—</div>
-              <div class="res-cat" id="resCat"></div>
-              <div class="res-meta">
-                <div class="r"><span>Hand length</span><b id="rLen">—</b></div>
-                <div class="r"><span>Hand width</span><b id="rWid">—</b></div>
-                <div class="r"><span>Fit confidence</span><b id="rConf">—</b></div>
-              </div>
-              <div class="res-note">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex-shrink:0"><circle cx="12" cy="12" r="9" stroke="#9FBCF0" stroke-width="1.6"/><path d="M12 8h.01M11 12h1v4h1" stroke="#9FBCF0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span id="rNote"></span>
-              </div>
-            </div>
-            <div>
-              <p class="ref-label">Full size reference</p>
-              <div class="table-wrap">
-                <table><thead><tr><th>Size</th><th>Hand Length (mm)</th><th>Hand Width (mm)</th></tr></thead>
-                <tbody>
-                  <tr><td>XL</td><td>195 – 210</td><td>100 – 115</td></tr>
-                  <tr><td>L</td><td>180 – 198</td><td>90 – 105</td></tr>
-                  <tr><td>M</td><td>160 – 185</td><td>80 – 95</td></tr>
-                  <tr><td>S</td><td>145 – 165</td><td>70 – 80</td></tr>
-                  <tr><td>12</td><td>138 – 153</td><td>65 – 72</td></tr>
-                  <tr><td>9</td><td>126 – 145</td><td>60 – 67</td></tr>
-                  <tr><td>7</td><td>119 – 135</td><td>55 – 62</td></tr>
-                  <tr><td>5</td><td>108 – 126</td><td>50 – 57</td></tr>
-                  <tr><td>3</td><td>100 – 115</td><td>48 – 55</td></tr>
-                  <tr><td>1.5</td><td>85 – 95</td><td>40 – 48</td></tr>
-                </tbody></table>
-              </div>
-            </div>
-          </div>
-          <div class="wiz-nav">
-            <button class="btn btn-ghost" onclick="goStep(2)">← Back</button>
-            <button class="btn btn-ghost" onclick="goStep(1)">Start Over</button>
-          </div>
-        </div>
+  </div><!-- /slides -->
 
-      </div><!-- /wiz-body -->
-    </div><!-- /wiz-card -->
+  <!-- BOTTOM NAV -->
+  <div class="botnav">
+    <div class="dots">
+      <div class="dot active" onclick="goSlide(0)"></div>
+      <div class="dot" onclick="goSlide(1)"></div>
+      <div class="dot" onclick="goSlide(2)"></div>
+      <div class="dot" onclick="goSlide(3)"></div>
+    </div>
+    <div class="nav-right">
+      <button class="btn btn-ghost" id="btnBack" onclick="goSlide(cur-1)" style="display:none">← Back</button>
+      <button class="btn btn-primary" id="btnNext" onclick="handleNext()">Next
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
   </div>
-</section>
 
-<footer>
-  <div class="foot">
-    <a href="/" class="logo" aria-label="Syrebo home"><img src="assets/logo.png" alt="Syrebo" /></a>
-    <p class="foot-tag">Providing innovative rehabilitation products &amp; services for hospitals, communities and homes.</p>
-    <p>© 2026 Syrebo</p>
-  </div>
-</footer>
+</div><!-- /deck -->
+
+<!-- FOOTER inside last slide's overflow — minimal, shown only on result slide -->
+<div id="footerBar" style="display:none;position:fixed;bottom:68px;left:0;right:0;text-align:center;font-size:12px;color:rgba(255,255,255,.35);padding:6px;pointer-events:none">
+  Providing innovative rehabilitation products &amp; services for hospitals, communities and homes. &nbsp;|&nbsp; © 2026 Syrebo
+</div>
 
 <script>
-  const SIZES = [
-    {s:"XL", cat:"Adult",   l:[195,210], w:[100,115]},
-    {s:"L",  cat:"Adult",   l:[180,198], w:[90,105]},
-    {s:"M",  cat:"Adult",   l:[160,185], w:[80,95]},
-    {s:"S",  cat:"Adult",   l:[145,165], w:[70,80]},
-    {s:"12", cat:"Kid",     l:[138,153], w:[65,72]},
-    {s:"9",  cat:"Kid",     l:[126,145], w:[60,67]},
-    {s:"7",  cat:"Kid",     l:[119,135], w:[55,62]},
-    {s:"5",  cat:"Kid",     l:[108,126], w:[50,57]},
-    {s:"3",  cat:"Toddler", l:[100,115], w:[48,55]},
-    {s:"1.5",cat:"Toddler", l:[85,95],   w:[40,48]}
+  const SIZES=[
+    {s:"XL",cat:"Adult",  l:[195,210],w:[100,115]},
+    {s:"L", cat:"Adult",  l:[180,198],w:[90,105]},
+    {s:"M", cat:"Adult",  l:[160,185],w:[80,95]},
+    {s:"S", cat:"Adult",  l:[145,165],w:[70,80]},
+    {s:"12",cat:"Kid",    l:[138,153],w:[65,72]},
+    {s:"9", cat:"Kid",    l:[126,145],w:[60,67]},
+    {s:"7", cat:"Kid",    l:[119,135],w:[55,62]},
+    {s:"5", cat:"Kid",    l:[108,126],w:[50,57]},
+    {s:"3", cat:"Toddler",l:[100,115],w:[48,55]},
+    {s:"1.5",cat:"Toddler",l:[85,95], w:[40,48]}
   ];
-  const HFACTOR = 1.08;
+  const HFACTOR=1.08;
+  function gap(v,[a,b]){return v<a?a-v:v>b?v-b:0}
+  function cd(v,[a,b]){return Math.abs(v-(a+b)/2)/((b-a)/2||1)}
 
-  function gap(v,[a,b]){ return v<a ? a-v : v>b ? v-b : 0; }
-  function centerDist(v,[a,b]){ return Math.abs(v-(a+b)/2)/((b-a)/2||1); }
+  let cur=0;
+  const total=4;
 
-  function goStep(n){
-    document.querySelectorAll('.wiz-panel').forEach(p=>p.classList.remove('active'));
-    document.getElementById('step'+n).classList.add('active');
-    [1,2,3].forEach(i=>{
-      const pill = document.getElementById('pill'+i);
-      pill.classList.toggle('active', i===n);
-      pill.classList.toggle('done', i<n);
-    });
-    document.getElementById('wizard').scrollIntoView({behavior:'smooth', block:'start'});
+  function goSlide(n){
+    if(n<0||n>=total) return;
+    const slides=document.querySelectorAll('.slide');
+    slides[cur].classList.add('exit-left');
+    setTimeout(()=>slides[cur].classList.remove('exit-left'),450);
+    slides[cur].classList.remove('active');
+    cur=n;
+    slides[cur].classList.add('active');
+    document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===cur));
+    document.getElementById('btnBack').style.display=cur>0?'':'none';
+    const btn=document.getElementById('btnNext');
+    if(cur===2){btn.textContent='Get My Size'; btn.innerHTML='Get My Size <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';}
+    else if(cur===3){btn.style.display='none';}
+    else{btn.style.display='';btn.innerHTML='Next <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';}
+    document.getElementById('footerBar').style.display=cur===3?'block':'none';
   }
 
-  document.getElementById('calcBtn').addEventListener('click', function(){
-    const len = parseFloat(document.getElementById('len').value);
-    const wid = parseFloat(document.getElementById('wid').value);
-    const ht  = parseFloat(document.getElementById('height').value);
-    const fLen = document.getElementById('fLen');
-    const fWid = document.getElementById('fWid');
-    const hasLen=len>0, hasWid=wid>0, hasHt=ht>0;
-    let invalid=false;
-    if(!hasLen && !hasHt){ fLen.classList.add('err'); invalid=true; } else { fLen.classList.remove('err'); }
-    if(!hasWid){ fWid.classList.add('err'); invalid=true; } else { fWid.classList.remove('err'); }
-    if(invalid){ (!hasLen&&!hasHt ? document.getElementById('len') : document.getElementById('wid')).focus(); return; }
+  function handleNext(){
+    if(cur===2){ calcAndGo(); return; }
+    goSlide(cur+1);
+  }
 
-    const estimated = !hasLen;
-    const L = hasLen ? len : Math.round(ht*HFACTOR);
-    let best=null, bestScore=Infinity, exact=false;
+  function calcAndGo(){
+    const len=parseFloat(document.getElementById('len').value);
+    const wid=parseFloat(document.getElementById('wid').value);
+    const ht =parseFloat(document.getElementById('height').value);
+    const fLen=document.getElementById('fLen');
+    const fWid=document.getElementById('fWid');
+    const hasLen=len>0,hasWid=wid>0,hasHt=ht>0;
+    let err=false;
+    if(!hasLen&&!hasHt){fLen.classList.add('err');err=true;}else fLen.classList.remove('err');
+    if(!hasWid){fWid.classList.add('err');err=true;}else fWid.classList.remove('err');
+    if(err){(!hasLen&&!hasHt?document.getElementById('len'):document.getElementById('wid')).focus();return;}
+
+    const estimated=!hasLen;
+    const L=hasLen?len:Math.round(ht*HFACTOR);
+    let best=null,bestScore=Infinity,exact=false;
     SIZES.forEach(o=>{
-      const g = gap(L,o.l) + gap(wid,o.w);
-      const tie = centerDist(L,o.l) + centerDist(wid,o.w);
-      const score = g*1000+tie;
-      if(score<bestScore){ bestScore=score; best=o; exact=(g===0); }
+      const g=gap(L,o.l)+gap(wid,o.w);
+      const score=g*1000+cd(L,o.l)+cd(wid,o.w);
+      if(score<bestScore){bestScore=score;best=o;exact=(g===0);}
     });
 
-    document.getElementById('resSize').textContent = best.s;
-    document.getElementById('resCat').textContent  = best.cat + (estimated?' · estimated from height':' · measured hand');
-    document.getElementById('rLen').textContent = L+'mm'+(estimated?' (est.)':'');
-    document.getElementById('rWid').textContent = wid+'mm';
-    document.getElementById('rConf').textContent = estimated?'Estimate':(exact?'Excellent':'Closest match');
-    document.getElementById('rNote').textContent = estimated
-      ? 'Estimated from your height. For the most accurate fit, measure your hand length and try again.'
-      : (exact
-        ? 'Your measurements fall comfortably within the '+best.cat+' '+best.s+' range.'
-        : 'No size fully covered your measurements — matched to the closest available size.');
+    document.getElementById('resSize').textContent=best.s;
+    document.getElementById('resCat').textContent=best.cat+(estimated?' · height estimate':' · measured');
+    document.getElementById('rLen').textContent=L+' mm'+(estimated?' (est.)':'');
+    document.getElementById('rWid').textContent=wid+' mm';
+    document.getElementById('rConf').textContent=estimated?'Estimate':(exact?'Excellent':'Closest match');
+    document.getElementById('rNote').textContent=estimated
+      ?'Estimated from height — for best accuracy, measure hand length directly.'
+      :(exact?'Your measurements fall comfortably within the '+best.cat+' '+best.s+' range.'
+             :'Matched to the closest available size.');
 
-    goStep(3);
-  });
+    document.querySelectorAll('#refTbody tr').forEach(tr=>{
+      tr.classList.toggle('highlight',tr.dataset.s===best.s);
+    });
+
+    goSlide(3);
+  }
 
   ['len','wid','height','weight'].forEach(id=>{
     const el=document.getElementById(id);
-    el.addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('calcBtn').click(); });
-    el.addEventListener('input', ()=>{ document.getElementById('fLen').classList.remove('err'); document.getElementById('fWid').classList.remove('err'); });
+    if(!el) return;
+    el.addEventListener('keydown',e=>{if(e.key==='Enter')handleNext();});
+    el.addEventListener('input',()=>{
+      document.getElementById('fLen').classList.remove('err');
+      document.getElementById('fWid').classList.remove('err');
+    });
   });
 
-  document.getElementById('heroStart').addEventListener('click', e=>{
-    e.preventDefault();
-    goStep(1);
-    document.getElementById('wizard').scrollIntoView({behavior:'smooth'});
+  // keyboard arrow nav
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='ArrowDown') handleNext();
+    if(e.key==='ArrowLeft'||e.key==='ArrowUp') goSlide(cur-1);
   });
-
-  const hdr=document.querySelector('header');
-  addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>10),{passive:true});
 </script>
 </body>
 </html>

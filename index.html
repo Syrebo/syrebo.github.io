@@ -341,12 +341,13 @@
         <div class="field" id="fLen">
           <label for="len">Hand length (mm) <em class="hint">Required</em></label>
           <input id="len" type="number" min="0" placeholder="e.g. 185" />
-          <div class="msg">Enter your hand length, or fill in height &amp; weight below.</div>
+          <div class="msg">Please enter your hand length.</div>
         </div>
 
-        <div class="field">
-          <label for="wid">Hand width (mm) <em class="hint">optional</em></label>
+        <div class="field" id="fWid">
+          <label for="wid">Hand width (mm) <em class="hint">Required</em></label>
           <input id="wid" type="number" min="0" placeholder="e.g. 92" />
+          <div class="msg">Please enter your hand width.</div>
         </div>
 
         <div class="orline"><span>optional — estimate from</span></div>
@@ -508,18 +509,23 @@
     const wid=parseFloat(document.getElementById("wid").value);
     const ht =parseFloat(document.getElementById("height").value);
     const fLen=document.getElementById("fLen");
-    const hasLen=len>0, hasHt=ht>0;
+    const fWid=document.getElementById("fWid");
+    const hasLen=len>0, hasWid=wid>0, hasHt=ht>0;
 
-    if(!hasLen && !hasHt){
-      fLen.classList.add("err");
-      document.getElementById("len").focus();
+    // Both hand length and hand width are required (unless using height fallback for length).
+    let invalid=false;
+    if(!hasLen && !hasHt){ fLen.classList.add("err"); invalid=true; }
+    else { fLen.classList.remove("err"); }
+    if(!hasWid){ fWid.classList.add("err"); invalid=true; }
+    else { fWid.classList.remove("err"); }
+    if(invalid){
+      (!hasLen && !hasHt ? document.getElementById("len") : document.getElementById("wid")).focus();
       return;
     }
-    fLen.classList.remove("err");
 
     const estimated=!hasLen;
     const L=hasLen ? len : Math.round(ht*HFACTOR);
-    const useW=wid>0;
+    const useW=hasWid;
 
     let best=null,bestScore=Infinity,exact=false;
     SIZES.forEach(o=>{
@@ -545,11 +551,12 @@
     document.getElementById("resCard").scrollIntoView({behavior:"smooth",block:"nearest"});
   }
   const fLenEl=document.getElementById("fLen");
+  const fWidEl=document.getElementById("fWid");
   document.getElementById("calcBtn").addEventListener("click",recommend);
   ["len","wid","height","weight"].forEach(id=>{
     const el=document.getElementById(id);
     el.addEventListener("keydown",e=>{ if(e.key==="Enter") recommend(); });
-    el.addEventListener("input",()=>fLenEl.classList.remove("err"));
+    el.addEventListener("input",()=>{ fLenEl.classList.remove("err"); fWidEl.classList.remove("err"); });
   });
   const hdr=document.querySelector("header");
   addEventListener("scroll",()=>hdr.classList.toggle("scrolled",scrollY>10),{passive:true});

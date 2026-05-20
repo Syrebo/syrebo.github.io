@@ -102,20 +102,11 @@
   }
   @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
   .glove-stage{
-    position:relative;width:min(440px,88%);aspect-ratio:.81;
-    border-radius:30px;padding:14px;
-    background:linear-gradient(170deg,#ffffff,#EAF1FE 75%);
-    border:1px solid rgba(255,255,255,.9);
-    box-shadow:0 44px 84px -34px rgba(11,59,176,.45),0 2px 0 rgba(255,255,255,.7) inset;
+    position:relative;width:min(420px,82%);
     animation:float 6s ease-in-out infinite;
+    filter:drop-shadow(0 36px 50px rgba(11,59,176,.28));
   }
-  .glove-stage::after{
-    content:"";position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);
-    width:62%;height:26px;border-radius:50%;
-    background:radial-gradient(ellipse,rgba(11,59,176,.26),transparent 72%);
-    filter:blur(4px);z-index:-1;
-  }
-  .hero-visual img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;border-radius:20px;display:block}
+  .hero-visual img{position:relative;z-index:1;width:100%;height:auto;display:block}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
   .float-tag{
     position:absolute;background:#fff;border:1px solid var(--line);border-radius:14px;
@@ -299,7 +290,7 @@
       <div class="halo"></div>
       <div class="ring"></div>
       <div class="glove-stage">
-        <img src="assets/hero-range.jpg" alt="Syrebo rehabilitation glove shown in sizes from adult XL down to toddler" />
+        <img src="assets/hero-glove.png" alt="Syrebo rehabilitation glove" />
       </div>
     </div>
   </div>

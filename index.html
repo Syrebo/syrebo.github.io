@@ -23,8 +23,8 @@ img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 
 /* NAV */
-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);transition:box-shadow .3s}
-header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.2)}
+header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.18)}
 .nav{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 28px}
 .logo img{height:36px;width:auto}
 .badges img{height:46px;width:auto;opacity:.9}
@@ -52,8 +52,7 @@ header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.2)}
 .btn{display:inline-flex;align-items:center;gap:9px;cursor:pointer;font-family:"Sora",sans-serif;font-weight:600;font-size:14.5px;padding:14px 26px;border-radius:999px;border:0;transition:.22s;white-space:nowrap}
 .btn-primary{background:linear-gradient(180deg,#1A5BEA,#1148CE);color:#fff;box-shadow:0 10px 24px -10px rgba(20,82,230,.55),0 1px 0 rgba(255,255,255,.22) inset}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 32px -12px rgba(20,82,230,.6)}
-.btn-ghost{background:transparent;color:var(--navy);border:1.5px solid var(--line)}
-.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+.btn-primary:active{transform:none}
 .hero-visual{position:relative;display:flex;justify-content:center;align-items:center}
 .hero-glow{position:absolute;width:90%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(20,82,230,.16),transparent 65%)}
 .hero-ring{position:absolute;width:75%;aspect-ratio:1;border:1.5px dashed rgba(20,82,230,.25);border-radius:50%;animation:spin 40s linear infinite}
@@ -68,57 +67,39 @@ header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.2)}
 }
 
 /* TOOL SECTION */
-.tool-section{padding:clamp(56px,8vw,100px) 28px;background:#fff}
+.tool-section{padding:clamp(64px,8vw,100px) 28px clamp(80px,10vw,120px);background:#fff}
 .tool-inner{max-width:var(--maxw);margin:0 auto}
-.tool-label{font-family:"Sora",sans-serif;font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
-.tool-heading{font-size:clamp(26px,3.4vw,42px);font-weight:800;color:var(--navy);margin-bottom:10px}
-.tool-sub{color:var(--muted);font-size:16px;margin-bottom:48px;max-width:560px}
+.section-label{font-family:"Sora",sans-serif;font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.section-heading{font-size:clamp(26px,3.4vw,40px);font-weight:800;color:var(--navy);margin-bottom:10px;line-height:1.15}
+.section-sub{color:var(--muted);font-size:16px;max-width:540px;line-height:1.6}
 
-/* STEP PROGRESS */
-.step-track{display:flex;align-items:center;gap:0;margin-bottom:44px;max-width:520px}
-.step-item{display:flex;align-items:center;gap:10px;position:relative}
-.step-circle{
-  width:38px;height:38px;border-radius:50%;border:2px solid var(--line);
-  display:grid;place-items:center;font-family:"Sora",sans-serif;font-weight:700;font-size:14px;
-  color:var(--muted);background:#fff;transition:var(--ease);flex-shrink:0;
-}
-.step-item.active .step-circle{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 6px 18px -4px rgba(20,82,230,.5)}
-.step-item.done .step-circle{background:var(--blue-tint);border-color:var(--blue);color:var(--blue)}
-.step-item.done .step-circle::after{content:"✓";font-size:13px}
-.step-item.done .step-circle span{display:none}
-.step-name{font-family:"Sora",sans-serif;font-weight:600;font-size:13px;color:var(--muted);transition:.3s}
-.step-item.active .step-name{color:var(--navy)}
-.step-line{flex:1;height:2px;background:var(--line);margin:0 12px;transition:background .5s;min-width:32px}
-.step-line.done{background:var(--blue)}
-@media(max-width:600px){.step-name{display:none}}
+/* DIVIDER */
+.flow-divider{display:flex;align-items:center;gap:16px;margin:52px 0 44px}
+.flow-divider-num{width:40px;height:40px;border-radius:12px;background:var(--navy);color:#fff;font-family:"Sora",sans-serif;font-weight:700;font-size:17px;display:grid;place-items:center;flex-shrink:0}
+.flow-divider-text{font-family:"Sora",sans-serif;font-weight:700;font-size:20px;color:var(--navy)}
+.flow-divider-line{flex:1;height:1px;background:var(--line)}
 
-/* STEP PANELS */
-.step-panels{position:relative;min-height:380px}
-.step-panel{display:none;animation:fadeUp .4s var(--ease)}
-.step-panel.active{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-
-/* STEP 1: MEASURE */
-.measure-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:36px}
+/* MEASURE GRID */
+.measure-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .m-card{
   background:var(--blue-tint-2);border:1px solid var(--line);border-radius:22px;
   padding:28px 24px;display:flex;flex-direction:column;align-items:center;
   text-align:center;gap:16px;transition:.3s;
 }
-.m-card:hover{border-color:rgba(20,82,230,.25);box-shadow:0 12px 40px -18px rgba(20,82,230,.18);transform:translateY(-3px)}
-.m-badge{width:36px;height:36px;border-radius:10px;background:var(--blue);color:#fff;font-family:"Sora",sans-serif;font-weight:700;font-size:15px;display:grid;place-items:center}
+.m-card:hover{border-color:rgba(20,82,230,.22);box-shadow:0 14px 44px -18px rgba(20,82,230,.16);transform:translateY(-3px)}
 .m-fig{width:100%;background:#fff;border-radius:14px;padding:18px;display:flex;align-items:center;justify-content:center}
 .m-fig img{width:100%;max-width:240px;height:auto}
 .m-card h3{font-size:18px;color:var(--navy);margin-bottom:4px}
 .m-card p{color:var(--muted);font-size:13.5px;line-height:1.6}
 @media(max-width:580px){.measure-grid{grid-template-columns:1fr}}
 
-/* STEP 2: INPUT */
+/* INPUT SECTION */
 .input-layout{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
-@media(max-width:680px){.input-layout{grid-template-columns:1fr}}
+@media(max-width:720px){.input-layout{grid-template-columns:1fr}}
 .field{margin-bottom:18px}
-.field label{display:flex;align-items:center;gap:0;font-family:"Sora",sans-serif;font-weight:600;font-size:12.5px;color:var(--ink);margin-bottom:8px}
-.badge-hint{font-style:normal;font-weight:600;font-size:10px;color:var(--blue);background:var(--blue-tint);padding:2px 8px;border-radius:999px;margin-left:8px}
+.field label{display:flex;align-items:center;font-family:"Sora",sans-serif;font-weight:600;font-size:12.5px;color:var(--ink);margin-bottom:8px}
+.badge-req{font-style:normal;font-weight:600;font-size:10px;color:#fff;background:var(--blue);padding:2px 8px;border-radius:999px;margin-left:8px}
+.badge-opt{font-style:normal;font-weight:600;font-size:10px;color:var(--blue);background:var(--blue-tint);padding:2px 8px;border-radius:999px;margin-left:8px}
 .field input{width:100%;padding:13px 16px;border:1.5px solid var(--line);border-radius:13px;font-family:"Manrope",sans-serif;font-size:15px;color:var(--ink);background:#fff;transition:.2s;-moz-appearance:textfield}
 .field input::-webkit-outer-spin-button,.field input::-webkit-inner-spin-button{-webkit-appearance:none}
 .field input:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 4px rgba(20,82,230,.1)}
@@ -128,35 +109,41 @@ header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.2)}
 .orline{display:flex;align-items:center;gap:10px;margin:16px 0 14px;color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
 .orline::before,.orline::after{content:"";flex:1;height:1px;background:var(--line)}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.calc-row{margin-top:8px}
 .input-hint{
   background:linear-gradient(140deg,var(--navy) 0%,var(--blue-deep) 100%);
-  border-radius:22px;padding:32px 28px;color:#fff;
-  display:flex;flex-direction:column;justify-content:center;gap:16px;
+  border-radius:22px;padding:36px 30px;color:#fff;
+  display:flex;flex-direction:column;justify-content:center;gap:20px;height:100%;
 }
 .input-hint h4{font-size:17px;font-weight:700;margin-bottom:4px}
 .input-hint p{font-size:13.5px;color:#CDDCF6;line-height:1.65}
-.input-hint .tip{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#9FBCF0}
+.input-hint .tip{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#9FBCF0;line-height:1.55}
 .input-hint .tip svg{flex-shrink:0;margin-top:2px}
 
-/* STEP 3: RESULT */
+/* RESULT */
+.result-wrap{
+  margin-top:0;max-height:0;overflow:hidden;
+  transition:max-height .6s cubic-bezier(.22,.9,.25,1),opacity .4s;opacity:0;
+}
+.result-wrap.open{max-height:800px;opacity:1}
+.result-inner{padding-top:44px}
 .result-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:32px;align-items:start}
 @media(max-width:680px){.result-layout{grid-template-columns:1fr}}
 .result-card{
   background:linear-gradient(155deg,var(--navy) 0%,var(--blue-deep) 120%);
-  border-radius:24px;padding:36px;color:#fff;position:relative;overflow:hidden;
+  border-radius:24px;padding:38px;color:#fff;position:relative;overflow:hidden;
 }
-.result-card::before{content:"";position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.1),transparent 70%);top:-80px;right:-60px;pointer-events:none}
+.result-card::before{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.1),transparent 70%);top:-80px;right:-60px;pointer-events:none}
 .rc-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#9FBCF0;font-family:"Sora",sans-serif;font-weight:600}
-.rc-size{font-family:"Sora",sans-serif;font-size:clamp(60px,8vw,90px);font-weight:800;line-height:1;margin:8px 0 2px}
-.rc-cat{font-size:15px;color:#CDDCF6;margin-bottom:24px}
-.rc-divider{height:1px;background:rgba(255,255,255,.14);margin-bottom:20px}
-.rc-row{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:10px}
+.rc-size{font-family:"Sora",sans-serif;font-size:clamp(64px,8vw,90px);font-weight:800;line-height:1;margin:8px 0 2px}
+.rc-cat{font-size:15px;color:#CDDCF6;margin-bottom:28px}
+.rc-divider{height:1px;background:rgba(255,255,255,.14);margin-bottom:22px}
+.rc-row{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:12px}
 .rc-row span{color:#9FBCF0}
 .rc-row b{font-family:"Sora",sans-serif}
-.rc-note{margin-top:18px;font-size:12px;color:#9FBCF0;background:rgba(255,255,255,.07);padding:12px 14px;border-radius:11px;display:flex;gap:9px;line-height:1.55}
-.ref-panel{}
+.rc-note{margin-top:20px;font-size:12px;color:#9FBCF0;background:rgba(255,255,255,.07);padding:14px 16px;border-radius:12px;display:flex;gap:9px;line-height:1.55}
 .ref-title{font-family:"Sora",sans-serif;font-weight:700;font-size:14px;color:var(--navy);margin-bottom:14px}
-.table-wrap{border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 30px -18px rgba(10,37,64,.15)}
+.table-wrap{border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 8px 30px -18px rgba(10,37,64,.12)}
 table{width:100%;border-collapse:collapse}
 thead th{background:var(--navy);color:#fff;font-family:"Sora",sans-serif;font-weight:600;font-size:12px;padding:13px 16px;text-align:left}
 tbody td{padding:11px 16px;border-bottom:1px solid var(--line);font-size:13.5px;transition:background .2s}
@@ -165,10 +152,9 @@ tbody td:first-child{font-family:"Sora",sans-serif;font-weight:700;color:var(--b
 tbody tr.hl{background:var(--blue-tint)}
 tbody tr.hl td{color:var(--navy)}
 tbody tr.hl td:first-child{color:var(--blue)}
-
-/* STEP NAV */
-.step-nav{display:flex;justify-content:space-between;align-items:center;margin-top:36px;padding-top:28px;border-top:1px solid var(--line)}
-.step-nav-right{display:flex;gap:10px}
+.restart-row{margin-top:28px;display:flex;align-items:center;gap:12px}
+.btn-text{background:none;border:0;color:var(--muted);font-family:"Manrope",sans-serif;font-size:13.5px;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px}
+.btn-text:hover{color:var(--blue)}
 
 /* FOOTER */
 footer{padding:44px 28px;border-top:1px solid var(--line);background:#fff}
@@ -197,7 +183,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(
     <div>
       <div class="hero-tag">Smart Sizing Tool</div>
       <h1>Find Your <em>Perfect Fit</em><br>with Syrebo</h1>
-      <p class="hero-desc">Enter your hand measurements and get your ideal Syrebo rehabilitation glove size in seconds — precise, comfortable, for every hand.</p>
+      <p class="hero-desc">Enter your hand measurements and get your ideal Syrebo rehabilitation glove size — precise, comfortable, for every hand.</p>
       <a href="#tool" class="btn btn-primary">Find My Size
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -213,105 +199,95 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(
 <!-- TOOL -->
 <section class="tool-section" id="tool">
   <div class="tool-inner">
-    <div class="tool-label">Sizing Tool</div>
-    <h2 class="tool-heading">Three steps to your perfect size</h2>
-    <p class="tool-sub">Follow the steps below — measure your hand, enter the numbers, get your result.</p>
 
-    <!-- Step progress -->
-    <div class="step-track">
-      <div class="step-item active" id="si1">
-        <div class="step-circle"><span>1</span></div>
-        <span class="step-name">How to Measure</span>
+    <div class="section-label">Glove Sizing Guide</div>
+    <h2 class="section-heading">Get the right fit in minutes</h2>
+    <p class="section-sub">Measure your hand, enter the values below, and we'll recommend your exact Syrebo size.</p>
+
+    <!-- HOW TO MEASURE -->
+    <div class="flow-divider">
+      <div class="flow-divider-num">1</div>
+      <div class="flow-divider-text">How to Measure</div>
+      <div class="flow-divider-line"></div>
+    </div>
+
+    <div class="measure-grid">
+      <div class="m-card">
+        <div class="m-fig"><img src="assets/hand-length.png" alt="Hand length"/></div>
+        <div>
+          <h3>Hand Length</h3>
+          <p>Measure vertically from the tip of the middle finger straight down to the wrist crease.</p>
+        </div>
       </div>
-      <div class="step-line" id="sl1"></div>
-      <div class="step-item" id="si2">
-        <div class="step-circle"><span>2</span></div>
-        <span class="step-name">Measurements</span>
-      </div>
-      <div class="step-line" id="sl2"></div>
-      <div class="step-item" id="si3">
-        <div class="step-circle"><span>3</span></div>
-        <span class="step-name">Your Size</span>
+      <div class="m-card">
+        <div class="m-fig"><img src="assets/hand-width.png" alt="Hand width"/></div>
+        <div>
+          <h3>Hand Width</h3>
+          <p>Measure across the widest part of the palm at the metacarpal knuckles.</p>
+        </div>
       </div>
     </div>
 
-    <div class="step-panels">
+    <!-- ENTER MEASUREMENTS -->
+    <div class="flow-divider">
+      <div class="flow-divider-num">2</div>
+      <div class="flow-divider-text">Enter Your Measurements</div>
+      <div class="flow-divider-line"></div>
+    </div>
 
-      <!-- STEP 1 -->
-      <div class="step-panel active" id="sp1">
-        <div class="measure-grid">
-          <div class="m-card">
-            <div class="m-badge">1</div>
-            <div class="m-fig"><img src="assets/hand-length.png" alt="Hand length"/></div>
-            <div>
-              <h3>Hand Length</h3>
-              <p>Measure vertically from the tip of the middle finger down to the wrist crease.</p>
-            </div>
+    <div class="input-layout">
+      <div>
+        <div class="field" id="fLen">
+          <label for="len">Hand length (mm) <em class="badge-req">Required</em></label>
+          <input id="len" type="number" min="0" placeholder="e.g. 185"/>
+          <div class="err-msg">Please enter your hand length.</div>
+        </div>
+        <div class="field" id="fWid">
+          <label for="wid">Hand width (mm) <em class="badge-req">Required</em></label>
+          <input id="wid" type="number" min="0" placeholder="e.g. 92"/>
+          <div class="err-msg">Please enter your hand width.</div>
+        </div>
+        <div class="orline"><span>or estimate from height</span></div>
+        <div class="row2">
+          <div class="field">
+            <label for="ht">Height (cm) <em class="badge-opt">optional</em></label>
+            <input id="ht" type="number" min="0" placeholder="e.g. 170"/>
           </div>
-          <div class="m-card">
-            <div class="m-badge">2</div>
-            <div class="m-fig"><img src="assets/hand-width.png" alt="Hand width"/></div>
-            <div>
-              <h3>Hand Width</h3>
-              <p>Measure across the widest part of the palm at the metacarpal knuckles.</p>
-            </div>
+          <div class="field">
+            <label for="wt">Weight (kg) <em class="badge-opt">optional</em></label>
+            <input id="wt" type="number" min="0" placeholder="e.g. 65"/>
           </div>
         </div>
-        <div class="step-nav">
-          <div></div>
-          <button class="btn btn-primary" onclick="goStep(2)">Next — Enter Measurements
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- STEP 2 -->
-      <div class="step-panel" id="sp2">
-        <div class="input-layout">
-          <div>
-            <div class="field" id="fLen">
-              <label for="len">Hand length (mm) <em class="badge-hint">Required</em></label>
-              <input id="len" type="number" min="0" placeholder="e.g. 185"/>
-              <div class="err-msg">Please enter your hand length.</div>
-            </div>
-            <div class="field" id="fWid">
-              <label for="wid">Hand width (mm) <em class="badge-hint">Required</em></label>
-              <input id="wid" type="number" min="0" placeholder="e.g. 92"/>
-              <div class="err-msg">Please enter your hand width.</div>
-            </div>
-            <div class="orline"><span>or estimate from</span></div>
-            <div class="row2">
-              <div class="field">
-                <label for="ht">Height (cm) <em class="badge-hint">optional</em></label>
-                <input id="ht" type="number" min="0" placeholder="e.g. 170"/>
-              </div>
-              <div class="field">
-                <label for="wt">Weight (kg) <em class="badge-hint">optional</em></label>
-                <input id="wt" type="number" min="0" placeholder="e.g. 65"/>
-              </div>
-            </div>
-          </div>
-          <div class="input-hint">
-            <div>
-              <h4>Measuring tips</h4>
-              <p>For the best result, measure the hand that will wear the glove, kept flat and relaxed.</p>
-            </div>
-            <div class="tip">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#9FBCF0" stroke-width="1.6"/><path d="M12 8h.01M11 12h1v4h1" stroke="#9FBCF0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              If you only have height and weight, we'll estimate your hand length — but direct measurement is more accurate.
-            </div>
-          </div>
-        </div>
-        <div class="step-nav">
-          <button class="btn btn-ghost" onclick="goStep(1)">← Back</button>
+        <div class="calc-row">
           <button class="btn btn-primary" id="calcBtn">Get My Size
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
         </div>
       </div>
+      <div class="input-hint">
+        <div>
+          <h4>Measuring tips</h4>
+          <p>Measure the hand that will wear the glove, kept flat and relaxed on a table. Use a ruler or soft tape measure.</p>
+        </div>
+        <div class="tip">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#9FBCF0" stroke-width="1.6"/><path d="M12 8h.01M11 12h1v4h1" stroke="#9FBCF0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          If you only have height, we'll estimate your hand length — but direct measurement gives the most accurate result.
+        </div>
+        <div class="tip">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#9FBCF0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          If between two sizes, choose the larger one for a more comfortable fit.
+        </div>
+      </div>
+    </div>
 
-      <!-- STEP 3 -->
-      <div class="step-panel" id="sp3">
+    <!-- RESULT (expands in-place) -->
+    <div class="result-wrap" id="resultWrap">
+      <div class="result-inner">
+        <div class="flow-divider">
+          <div class="flow-divider-num">3</div>
+          <div class="flow-divider-text">Your Recommended Size</div>
+          <div class="flow-divider-line"></div>
+        </div>
         <div class="result-layout">
           <div class="result-card">
             <div class="rc-label">Recommended size</div>
@@ -326,7 +302,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(
               <span id="rNote"></span>
             </div>
           </div>
-          <div class="ref-panel">
+          <div>
             <p class="ref-title">Full size reference</p>
             <div class="table-wrap">
               <table>
@@ -345,15 +321,14 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(
                 </tbody>
               </table>
             </div>
+            <div class="restart-row">
+              <button class="btn-text" id="resetBtn">Clear and start over</button>
+            </div>
           </div>
         </div>
-        <div class="step-nav">
-          <button class="btn btn-ghost" onclick="goStep(2)">← Back</button>
-          <button class="btn btn-ghost" onclick="goStep(1)">Start Over</button>
-        </div>
       </div>
-
     </div>
+
   </div>
 </section>
 
@@ -381,20 +356,6 @@ const SIZES=[
 const HFACTOR=1.08;
 function gap(v,[a,b]){return v<a?a-v:v>b?v-b:0}
 function cd(v,[a,b]){return Math.abs(v-(a+b)/2)/((b-a)/2||1)}
-
-let cur=1;
-function goStep(n){
-  document.getElementById('sp'+cur).classList.remove('active');
-  cur=n;
-  document.getElementById('sp'+cur).classList.add('active');
-  [1,2,3].forEach(i=>{
-    const si=document.getElementById('si'+i);
-    si.classList.toggle('active',i===cur);
-    si.classList.toggle('done',i<cur);
-  });
-  [1,2].forEach(i=>document.getElementById('sl'+i).classList.toggle('done',i<cur));
-  document.getElementById('tool').scrollIntoView({behavior:'smooth',block:'start'});
-}
 
 document.getElementById('calcBtn').addEventListener('click',function(){
   const len=parseFloat(document.getElementById('len').value);
@@ -425,14 +386,28 @@ document.getElementById('calcBtn').addEventListener('click',function(){
     :(exact?'Your measurements fall comfortably within the '+best.cat+' '+best.s+' range.'
            :'Matched to the closest available size.');
   document.querySelectorAll('#refBody tr').forEach(r=>r.classList.toggle('hl',r.dataset.s===best.s));
-  goStep(3);
+
+  const wrap=document.getElementById('resultWrap');
+  wrap.classList.add('open');
+  setTimeout(()=>wrap.scrollIntoView({behavior:'smooth',block:'start'}),50);
+});
+
+document.getElementById('resetBtn').addEventListener('click',function(){
+  ['len','wid','ht','wt'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('fLen').classList.remove('err');
+  document.getElementById('fWid').classList.remove('err');
+  document.getElementById('resultWrap').classList.remove('open');
+  document.getElementById('len').focus();
 });
 
 ['len','wid','ht','wt'].forEach(id=>{
   const el=document.getElementById(id);
   if(!el)return;
   el.addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('calcBtn').click();});
-  el.addEventListener('input',()=>{document.getElementById('fLen').classList.remove('err');document.getElementById('fWid').classList.remove('err');});
+  el.addEventListener('input',()=>{
+    document.getElementById('fLen').classList.remove('err');
+    document.getElementById('fWid').classList.remove('err');
+  });
 });
 
 window.addEventListener('scroll',()=>document.querySelector('header').classList.toggle('scrolled',scrollY>10),{passive:true});

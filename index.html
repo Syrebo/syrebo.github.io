@@ -59,10 +59,9 @@
   /* NAV */
   header{
     position:sticky;top:0;z-index:50;
-    background:var(--navy);backdrop-filter:blur(14px);
-    border-bottom:1px solid rgba(255,255,255,.10);
+    background:rgba(255,255,255,.92);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
   }
-  .tagline{color:rgba(255,255,255,.65)!important}
   .nav{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:16px 24px}
   .logo{display:inline-block;line-height:0}
   .logo img{height:38px;width:auto;display:block}
@@ -240,8 +239,8 @@
   .cta-box .btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px -16px rgba(0,0,0,.4)}
   footer{padding:42px 24px;border-top:1px solid var(--line);margin-top:clamp(48px,7vw,90px)}
   .foot{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
-  .foot .logo{font-size:21px}
   .foot p{color:var(--muted);font-size:13.5px}
+  .foot-tag{max-width:420px;text-align:center;flex:1}
 
   .reveal{opacity:0;transform:translateY(28px);transition:.7s cubic-bezier(.2,.7,.2,1)}
   .reveal.in{opacity:1;transform:none}
@@ -265,7 +264,6 @@
 <header>
   <nav class="nav">
     <a href="/" class="logo" aria-label="Syrebo home"><img src="assets/logo.png" alt="Syrebo" /></a>
-    <div class="tagline">Providing innovative rehabilitation products &amp; services for hospitals, communities and homes.</div>
   </nav>
 </header>
 
@@ -423,6 +421,7 @@
 <footer>
   <div class="foot">
     <a href="/" class="logo" aria-label="Syrebo home"><img src="assets/logo.png" alt="Syrebo" /></a>
+    <p class="foot-tag">Providing innovative rehabilitation products &amp; services for hospitals, communities and homes.</p>
     <p>© 2026 Syrebo</p>
   </div>
 </footer>

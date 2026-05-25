@@ -10,7 +10,6 @@
 <style>
 :root{
   --navy:#0A2540;--blue:#1452E6;--blue-deep:#0B3BB0;
-  --orange:#FF8A1F;--orange-tint:#FFF0DF;
   --blue-tint:#EAF1FE;--blue-tint-2:#F4F8FF;
   --line:#E3EAF5;--muted:#5C7088;--ink:#11233b;
   --white:#fff;--maxw:1160px;
@@ -34,164 +33,74 @@ header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.18)}
 /* HERO */
 .hero{
   position:relative;overflow:hidden;
-  padding:clamp(72px,9vw,120px) 28px clamp(80px,10vw,130px);
-  background:linear-gradient(160deg,#f0f5ff 0%,#fff 55%);
+  padding:clamp(60px,8vw,100px) 0 0;
+  background:linear-gradient(160deg,#f0f5ff 0%,#fff 60%);
 }
 .hero::after{
   content:"";position:absolute;right:-180px;top:-120px;
   width:700px;height:700px;border-radius:50%;
-  background:radial-gradient(circle,rgba(20,82,230,.12) 0%,transparent 68%);
+  background:radial-gradient(circle,rgba(20,82,230,.11) 0%,transparent 68%);
   pointer-events:none;
 }
-.hero-inner{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.hero-inner{
+  max-width:var(--maxw);margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
+  padding:0 28px;
+}
 .hero-tag{display:inline-flex;align-items:center;gap:8px;font-family:"Sora",sans-serif;font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);background:var(--blue-tint);padding:7px 16px;border-radius:999px;margin-bottom:22px}
 .hero-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue)}
-.hero h1{font-size:clamp(34px,4.8vw,62px);font-weight:800;color:var(--navy);line-height:1.08;margin-bottom:18px}
+.hero h1{font-size:clamp(32px,4.4vw,58px);font-weight:800;color:var(--navy);line-height:1.1;margin-bottom:18px}
 .hero h1 em{font-style:normal;color:var(--blue);position:relative}
-.hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:4px;height:9px;background:rgba(20,82,230,.15);z-index:-1;border-radius:3px}
-.hero-desc{font-size:clamp(15px,1.4vw,18px);color:var(--muted);line-height:1.7;max-width:480px;margin-bottom:34px}
+.hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:3px;height:8px;background:rgba(20,82,230,.15);z-index:-1;border-radius:3px}
+.hero-desc{font-size:clamp(14px,1.3vw,17px);color:var(--muted);line-height:1.7;max-width:460px;margin-bottom:32px}
 .hero-desc strong{color:var(--navy);font-weight:700}
-.hero-copy-note{display:flex;align-items:center;gap:12px;margin-top:26px;color:#74869a;font-size:13px;line-height:1.45}
-.hero-copy-note::before{content:"";width:54px;height:1px;background:linear-gradient(90deg,var(--blue),rgba(20,82,230,0));flex-shrink:0}
 .btn{display:inline-flex;align-items:center;gap:9px;cursor:pointer;font-family:"Sora",sans-serif;font-weight:600;font-size:14.5px;padding:14px 26px;border-radius:999px;border:0;transition:.22s;white-space:nowrap}
 .btn-primary{background:linear-gradient(180deg,#1A5BEA,#1148CE);color:#fff;box-shadow:0 10px 24px -10px rgba(20,82,230,.55),0 1px 0 rgba(255,255,255,.22) inset}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 32px -12px rgba(20,82,230,.6)}
 .btn-primary:active{transform:none}
-.hero-visual{position:relative;display:flex;justify-content:center;align-items:center;min-height:540px}
-.hero-glow{position:absolute;width:92%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(20,82,230,.15),transparent 65%)}
-.hero-ring{position:absolute;width:76%;aspect-ratio:1;border:1.5px dashed rgba(20,82,230,.2);border-radius:50%;animation:spin 40s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.hero-glove{display:none}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-.size-spectrum{
-  position:absolute;inset:24px 0 18px;z-index:2;
-  display:flex;align-items:center;justify-content:center;pointer-events:none;
-}
-.spectrum-gloves{
-  position:absolute;left:-3%;right:-3%;bottom:92px;height:390px;
-  display:grid;grid-template-columns:repeat(5,1fr);align-items:end;
-}
-.spectrum-glove{
-  position:relative;display:flex;justify-content:center;align-items:flex-end;
-  height:100%;animation:spectrum-breathe 6.5s ease-in-out infinite;
-  animation-delay:var(--delay);
-}
-.spectrum-glove::after{
-  content:"";position:absolute;bottom:7px;left:50%;width:58%;height:16px;
-  transform:translateX(-50%);border-radius:50%;
-  background:radial-gradient(ellipse,rgba(10,37,64,.16),rgba(10,37,64,0) 70%);
-  filter:blur(2px);
-}
-.spectrum-glove img{
-  position:relative;z-index:1;width:var(--w-desktop);height:auto;
-  transform:translate(var(--shift),var(--lift));
-  filter:drop-shadow(0 22px 30px rgba(10,37,64,.2));
-}
-.spectrum-glove.orange img{filter:drop-shadow(0 20px 28px rgba(178,82,0,.22))}
-.spectrum-glove.blue img{filter:drop-shadow(0 24px 34px rgba(11,59,176,.24))}
-@keyframes spectrum-breathe{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-8px)}
-}
-.spectrum-scale{
-  position:absolute;left:4%;right:4%;bottom:52px;height:72px;
-  display:grid;grid-template-columns:repeat(5,1fr);align-items:end;
-}
-.spectrum-scale::before{
-  content:"";position:absolute;left:0;right:0;bottom:34px;height:2px;
-  background:linear-gradient(90deg,rgba(20,82,230,.18),rgba(255,138,31,.42),rgba(20,82,230,.26));
-  border-radius:999px;
-}
-.scale-item{position:relative;text-align:center;font-family:"Sora",sans-serif;color:var(--navy)}
-.scale-item::before{
-  content:"";position:absolute;left:50%;bottom:29px;width:1px;height:13px;
-  background:rgba(10,37,64,.28);transform:translateX(-50%);
-}
-.scale-size{display:block;font-size:13px;font-weight:800;letter-spacing:.08em}
-.scale-label{display:block;margin-top:4px;font-family:"Manrope",sans-serif;font-size:11px;color:var(--muted)}
-.spectrum-caption{
-  position:absolute;left:50%;bottom:0;transform:translateX(-50%);
-  display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;
-  background:rgba(255,255,255,.82);border:1px solid rgba(227,234,245,.9);
-  box-shadow:0 18px 38px -26px rgba(10,37,64,.35);
-  color:var(--navy);font-family:"Sora",sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  white-space:nowrap;
-}
-.spectrum-caption::before{content:"";width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--orange))}
-@media(max-width:820px){
-  .hero-inner{grid-template-columns:1fr;text-align:center}
-  .hero-desc{margin-left:auto;margin-right:auto}
-  .hero-copy-note{justify-content:center}
-  .hero-copy-note::before{display:none}
-  .hero-visual{order:-1;min-height:340px}
-  .size-spectrum{inset:0 -10px 8px}
-  .spectrum-gloves{left:-6%;right:-6%;bottom:72px;height:230px}
-  .spectrum-glove img{width:var(--w-mobile)}
-  .spectrum-scale{left:1%;right:1%;bottom:28px;height:54px}
-  .spectrum-scale::before{bottom:29px}
-  .scale-item::before{bottom:24px;height:10px}
-  .scale-size{font-size:11px}.scale-label{font-size:9px}
-  .spectrum-caption{bottom:-4px;font-size:9px;padding:7px 11px}
-  .hero-tag{margin-left:auto;margin-right:auto}
-}
 
-/* RANGE CAROUSEL */
-.range-section{padding:clamp(52px,6vw,80px) 0 clamp(60px,7vw,88px);background:linear-gradient(180deg,#f4f8ff 0%,#fff 100%);overflow:hidden}
-.range-inner{max-width:var(--maxw);margin:0 auto;padding:0 28px}
-.range-outer{position:relative;margin-top:40px}
-.range-track{
-  display:flex;align-items:flex-end;gap:0;
-  overflow-x:auto;scroll-behavior:smooth;
-  padding:16px 56px 0;
-  scrollbar-width:none;-ms-overflow-style:none;
-  cursor:grab;
+/* HERO CAROUSEL (right column) */
+.hero-visual{
+  position:relative;overflow:hidden;
+  padding-bottom:0;
+  /* no min-height — let carousel define it */
 }
-.range-track::-webkit-scrollbar{display:none}
-.range-track.grabbing{cursor:grabbing;scroll-behavior:auto}
-.range-item{
+.hc-track{
+  display:flex;align-items:flex-end;gap:10px;
+  overflow-x:scroll;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  cursor:grab;user-select:none;
+  padding:32px 28px 0 0;   /* right pad to peek last item */
+}
+.hc-track::-webkit-scrollbar{display:none}
+.hc-track.dragging{cursor:grabbing}
+.hc-item{
   display:flex;flex-direction:column;align-items:center;
-  flex-shrink:0;width:112px;
-  transition:transform .25s;
+  flex-shrink:0;gap:8px;
+  padding-bottom:20px;
+  transition:transform .22s;
 }
-.range-item:hover{transform:translateY(-8px)}
-.range-img-wrap{
-  display:flex;align-items:flex-end;justify-content:center;
-  width:100%;height:270px;
+.hc-item:hover{transform:translateY(-7px)}
+.hc-item img{
+  width:auto;max-width:none; /* critical: no width squash */
+  display:block;pointer-events:none;
+  filter:drop-shadow(0 10px 22px rgba(10,37,64,.2));
 }
-.range-img-wrap img{
-  object-fit:contain;object-position:bottom center;
-  width:auto;max-width:100%;display:block;pointer-events:none;
-  filter:drop-shadow(0 10px 18px rgba(10,37,64,.18));
-}
-.range-floor{height:2px;background:linear-gradient(90deg,transparent 0%,rgba(20,82,230,.15) 12%,rgba(255,138,31,.3) 50%,rgba(20,82,230,.2) 88%,transparent 100%);margin:0 56px}
-.range-labels{display:flex;padding:0 56px;overflow:hidden;pointer-events:none}
-.range-label{
-  width:112px;flex-shrink:0;
-  display:flex;flex-direction:column;align-items:center;
-  padding-top:10px;gap:3px;text-align:center;
-}
-.range-label .rs{font-family:"Sora",sans-serif;font-weight:800;font-size:15px;color:var(--navy)}
-.range-label .rd{font-size:11px;color:var(--muted);line-height:1.35}
-.range-label .rc{font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px;margin-top:2px}
-.rc-kid{color:#B35F00;background:#FFF0DF}
-.rc-adult{color:var(--blue);background:var(--blue-tint)}
-.ra-btn{
-  position:absolute;top:calc(50% - 20px);transform:translateY(-50%);
-  width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);
-  background:rgba(255,255,255,.95);color:var(--navy);display:grid;place-items:center;
-  cursor:pointer;z-index:3;transition:.2s;box-shadow:0 4px 16px -6px rgba(10,37,64,.18);
-}
-.ra-btn:hover{border-color:var(--blue);color:var(--blue);box-shadow:0 6px 22px -6px rgba(20,82,230,.28)}
-.ra-btn.left{left:6px}
-.ra-btn.right{right:6px}
-.ra-btn:disabled{opacity:.25;cursor:default;pointer-events:none}
-@media(max-width:680px){
-  .range-item{width:88px}
-  .range-label{width:88px}
-  .range-img-wrap{height:200px}
-  .range-labels,.range-track{padding-left:40px;padding-right:40px}
-  .range-floor{margin:0 40px}
-  .ra-btn.left{left:0}.ra-btn.right{right:0}
+.hc-item.orange img{filter:drop-shadow(0 10px 20px rgba(170,80,0,.2))}
+.hc-lbl{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.hc-lbl b{font-family:"Sora",sans-serif;font-weight:800;font-size:13px;color:var(--navy)}
+.hc-lbl small{font-size:10px;color:var(--muted);white-space:nowrap}
+/* fade edges */
+.hc-fade-l{position:absolute;left:0;top:0;bottom:0;width:28px;pointer-events:none;z-index:2;background:linear-gradient(90deg,rgba(240,245,255,.9),transparent)}
+.hc-fade-r{position:absolute;right:0;top:0;bottom:0;width:48px;pointer-events:none;z-index:2;background:linear-gradient(-90deg,rgba(255,255,255,.85),transparent)}
+/* baseline under track */
+.hc-baseline{height:2px;margin:0 0 0 0;background:linear-gradient(90deg,rgba(20,82,230,.08),rgba(20,82,230,.18) 40%,rgba(255,138,31,.28) 65%,rgba(20,82,230,.12) 100%)}
+
+@media(max-width:820px){
+  .hero-inner{grid-template-columns:1fr;padding-bottom:0}
+  .hero-desc{margin-left:auto;margin-right:auto}
+  .hero-visual{order:-1}
+  .hc-track{padding:20px 20px 0 20px}
+  .hero-tag{margin-left:auto;margin-right:auto}
 }
 
 /* TOOL SECTION */
@@ -206,7 +115,6 @@ header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.18)}
 .flow-divider-num{width:40px;height:40px;border-radius:12px;background:var(--navy);color:#fff;font-family:"Sora",sans-serif;font-weight:700;font-size:17px;display:grid;place-items:center;flex-shrink:0}
 .flow-divider-text{font-family:"Sora",sans-serif;font-weight:700;font-size:20px;color:var(--navy)}
 .flow-divider-line{flex:1;height:1px;background:var(--line)}
-
 
 /* INPUT SECTION */
 .input-layout{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
@@ -226,35 +134,24 @@ header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.18)}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .calc-row{margin-top:8px}
 
-/* MEASURE SIDE (right col of input layout) */
+/* MEASURE SIDE */
 .measure-side{display:flex;flex-direction:column;gap:16px}
 .measure-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.mm-card{
-  background:var(--blue-tint-2);border:1px solid var(--line);border-radius:18px;
-  padding:16px 14px;display:flex;flex-direction:column;align-items:center;
-  text-align:center;gap:10px;
-}
+.mm-card{background:var(--blue-tint-2);border:1px solid var(--line);border-radius:18px;padding:16px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
 .mm-fig{width:100%;background:#fff;border-radius:12px;padding:10px;display:flex;align-items:center;justify-content:center}
 .mm-fig img{width:100%;max-width:180px;height:auto}
 .mm-card h4{font-family:"Sora",sans-serif;font-size:13px;font-weight:700;color:var(--navy)}
 .mm-card p{color:var(--muted);font-size:11.5px;line-height:1.5}
 .measure-tip{display:flex;align-items:flex-start;gap:8px;font-size:12.5px;color:var(--muted);line-height:1.55;padding:12px 14px;background:var(--blue-tint-2);border:1px solid var(--line);border-radius:12px}
 .measure-tip svg{flex-shrink:0;color:var(--blue);margin-top:1px}
-@media(max-width:580px){.measure-mini-grid{grid-template-columns:1fr 1fr}}
 
 /* RESULT */
-.result-wrap{
-  margin-top:0;max-height:0;overflow:hidden;
-  transition:max-height .6s cubic-bezier(.22,.9,.25,1),opacity .4s;opacity:0;
-}
+.result-wrap{margin-top:0;max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.22,.9,.25,1),opacity .4s;opacity:0}
 .result-wrap.open{max-height:800px;opacity:1}
 .result-inner{padding-top:44px}
 .result-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:32px;align-items:start}
 @media(max-width:680px){.result-layout{grid-template-columns:1fr}}
-.result-card{
-  background:linear-gradient(155deg,var(--navy) 0%,var(--blue-deep) 120%);
-  border-radius:24px;padding:38px;color:#fff;position:relative;overflow:hidden;
-}
+.result-card{background:linear-gradient(155deg,var(--navy) 0%,var(--blue-deep) 120%);border-radius:24px;padding:38px;color:#fff;position:relative;overflow:hidden}
 .result-card::before{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.1),transparent 70%);top:-80px;right:-60px;pointer-events:none}
 .rc-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#9FBCF0;font-family:"Sora",sans-serif;font-weight:600}
 .rc-size{font-family:"Sora",sans-serif;font-size:clamp(64px,8vw,90px);font-weight:800;line-height:1;margin:8px 0 2px}
@@ -274,7 +171,7 @@ tbody td:first-child{font-family:"Sora",sans-serif;font-weight:700;color:var(--b
 tbody tr.hl{background:var(--blue-tint)}
 tbody tr.hl td{color:var(--navy)}
 tbody tr.hl td:first-child{color:var(--blue)}
-.restart-row{margin-top:28px;display:flex;align-items:center;gap:12px}
+.restart-row{margin-top:28px}
 .btn-text{background:none;border:0;color:var(--muted);font-family:"Manrope",sans-serif;font-size:13.5px;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px}
 .btn-text:hover{color:var(--blue)}
 
@@ -302,88 +199,65 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
+    <!-- LEFT: copy -->
     <div>
-      <div class="hero-tag">Size Spectrum</div>
-      <h1><em>Syrebo</em> Smart<br>Sizing Tool</h1>
-      <p class="hero-desc">From children to adults, Syrebo offers 10 glove sizes. Simply measure your hand, and the <strong>Syrebo Smart Sizing Tool</strong> will instantly recommend the right fit for you.</p>
+      <div class="hero-tag">Smart Sizing Tool</div>
+      <h1>Find Your <em>Perfect Fit</em><br>with Syrebo</h1>
+      <p class="hero-desc">From infant to extra-large — Syrebo covers <strong>10 sizes</strong>. Measure your hand and get your exact fit in seconds.</p>
       <a href="#tool" class="btn btn-primary">Find My Size
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <div class="hero-copy-note">Match S, M, L, XL and 2XL hands against one clear Syrebo size spectrum.</div>
     </div>
-    <div class="hero-visual">
-      <div class="hero-glow"></div>
-      <div class="hero-ring"></div>
-      <div class="size-spectrum" aria-hidden="true">
-        <div class="spectrum-gloves">
-          <div class="spectrum-glove orange" style="--w-desktop:64px;--w-mobile:50px;--shift:0px;--lift:0px;--delay:-.2s">
-            <img src="assets/hero-glove-orange.png" alt=""/>
-          </div>
-          <div class="spectrum-glove orange" style="--w-desktop:94px;--w-mobile:68px;--shift:0px;--lift:0px;--delay:-1s">
-            <img src="assets/hero-glove-orange.png" alt=""/>
-          </div>
-          <div class="spectrum-glove blue" style="--w-desktop:126px;--w-mobile:86px;--shift:0px;--lift:0px;--delay:-1.8s">
-            <img src="assets/hero-glove.png" alt=""/>
-          </div>
-          <div class="spectrum-glove blue" style="--w-desktop:178px;--w-mobile:106px;--shift:0px;--lift:0px;--delay:-2.6s">
-            <img src="assets/hero-glove.png" alt=""/>
-          </div>
-          <div class="spectrum-glove blue" style="--w-desktop:240px;--w-mobile:126px;--shift:-10px;--lift:0px;--delay:-3.4s">
-            <img src="assets/hero-glove.png" alt=""/>
-          </div>
-        </div>
-        <div class="spectrum-scale">
-          <div class="scale-item"><span class="scale-size">S</span><span class="scale-label">Small hands</span></div>
-          <div class="scale-item"><span class="scale-size">M</span><span class="scale-label">Medium</span></div>
-          <div class="scale-item"><span class="scale-size">L</span><span class="scale-label">Standard adult</span></div>
-          <div class="scale-item"><span class="scale-size">XL</span><span class="scale-label">Large hands</span></div>
-          <div class="scale-item"><span class="scale-size">2XL</span><span class="scale-label">Extra large</span></div>
-        </div>
-        <div class="spectrum-caption">Hand Size Spectrum</div>
-      </div>
-      <img class="hero-glove" src="assets/hero-duo.png" alt="Syrebo rehabilitation gloves — adult and child sizes"/>
-    </div>
-  </div>
-</section>
 
-<!-- SIZE RANGE CAROUSEL -->
-<section class="range-section">
-  <div class="range-inner">
-    <div class="section-label">Complete Size Range</div>
-    <h2 class="section-heading">10 sizes · every hand</h2>
-    <p class="section-sub">From infant to extra-large — drag or use arrows to explore.</p>
-    <div class="range-outer">
-      <button class="ra-btn left" id="raL" aria-label="Scroll left">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <div class="range-track" id="rangeTrack">
-        <div class="range-item"><div class="range-img-wrap"><img src="assets/kid-glove.png" style="height:106px" alt="1.5"/></div></div>
-        <div class="range-item"><div class="range-img-wrap"><img src="assets/kid-glove.png" style="height:127px" alt="3"/></div></div>
-        <div class="range-item"><div class="range-img-wrap"><img src="assets/kid-glove.png" style="height:144px" alt="5"/></div></div>
-        <div class="range-item"><div class="range-img-wrap"><img src="assets/kid-glove.png" style="height:158px" alt="7"/></div></div>
-        <div class="range-item"><div class="range-img-wrap"><img src="assets/kid-glove.png" style="height:170px" alt="9"/></div></div>
-        <div class="range-item"><div class="range-img-wrap"><img src="assets/kid-glove.png" style="height:182px" alt="12"/></div></div>
-        <div class="range-item"><div class="range-img-wrap"><img src="assets/hero-glove.png" style="height:196px" alt="S"/></div></div>
-        <div class="range-item"><div class="range-img-wrap"><img src="assets/hero-glove.png" style="height:218px" alt="M"/></div></div>
-        <div class="range-item"><div class="range-img-wrap"><img src="assets/hero-glove.png" style="height:240px" alt="L"/></div></div>
-        <div class="range-item"><div class="range-img-wrap"><img src="assets/hero-glove.png" style="height:260px" alt="XL"/></div></div>
+    <!-- RIGHT: size carousel -->
+    <div class="hero-visual">
+      <div class="hc-track" id="hcTrack">
+        <!-- Kids (orange) — sizes 1.5 → 12, heights 76→148px proportional to hand length midpoint -->
+        <div class="hc-item orange">
+          <img src="assets/kid-glove.png" style="height:76px" alt="1.5"/>
+          <div class="hc-lbl"><b>1.5</b><small>Infant</small></div>
+        </div>
+        <div class="hc-item orange">
+          <img src="assets/kid-glove.png" style="height:93px" alt="3"/>
+          <div class="hc-lbl"><b>3</b><small>Toddler</small></div>
+        </div>
+        <div class="hc-item orange">
+          <img src="assets/kid-glove.png" style="height:107px" alt="5"/>
+          <div class="hc-lbl"><b>5</b><small>Small kid</small></div>
+        </div>
+        <div class="hc-item orange">
+          <img src="assets/kid-glove.png" style="height:119px" alt="7"/>
+          <div class="hc-lbl"><b>7</b><small>Kid</small></div>
+        </div>
+        <div class="hc-item orange">
+          <img src="assets/kid-glove.png" style="height:130px" alt="9"/>
+          <div class="hc-lbl"><b>9</b><small>Pre-teen</small></div>
+        </div>
+        <div class="hc-item orange">
+          <img src="assets/kid-glove.png" style="height:141px" alt="12"/>
+          <div class="hc-lbl"><b>12</b><small>Large kid</small></div>
+        </div>
+        <!-- Adults (blue) — sizes S → XL, heights 154→210px -->
+        <div class="hc-item">
+          <img src="assets/hero-glove.png" style="height:154px" alt="S"/>
+          <div class="hc-lbl"><b>S</b><small>Small adult</small></div>
+        </div>
+        <div class="hc-item">
+          <img src="assets/hero-glove.png" style="height:174px" alt="M"/>
+          <div class="hc-lbl"><b>M</b><small>Medium</small></div>
+        </div>
+        <div class="hc-item">
+          <img src="assets/hero-glove.png" style="height:192px" alt="L"/>
+          <div class="hc-lbl"><b>L</b><small>Standard adult</small></div>
+        </div>
+        <div class="hc-item">
+          <img src="assets/hero-glove.png" style="height:210px" alt="XL"/>
+          <div class="hc-lbl"><b>XL</b><small>Large adult</small></div>
+        </div>
       </div>
-      <button class="ra-btn right" id="raR" aria-label="Scroll right">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-    </div>
-    <div class="range-floor"></div>
-    <div class="range-labels" id="rangeLabels">
-      <div class="range-label"><span class="rs">1.5</span><span class="rd">Infant</span><span class="rc rc-kid">Kids</span></div>
-      <div class="range-label"><span class="rs">3</span><span class="rd">Toddler</span><span class="rc rc-kid">Kids</span></div>
-      <div class="range-label"><span class="rs">5</span><span class="rd">Small kid</span><span class="rc rc-kid">Kids</span></div>
-      <div class="range-label"><span class="rs">7</span><span class="rd">Kid</span><span class="rc rc-kid">Kids</span></div>
-      <div class="range-label"><span class="rs">9</span><span class="rd">Pre-teen</span><span class="rc rc-kid">Kids</span></div>
-      <div class="range-label"><span class="rs">12</span><span class="rd">Large kid</span><span class="rc rc-kid">Kids</span></div>
-      <div class="range-label"><span class="rs">S</span><span class="rd">Small adult</span><span class="rc rc-adult">Adult</span></div>
-      <div class="range-label"><span class="rs">M</span><span class="rd">Medium</span><span class="rc rc-adult">Adult</span></div>
-      <div class="range-label"><span class="rs">L</span><span class="rd">Standard</span><span class="rc rc-adult">Adult</span></div>
-      <div class="range-label"><span class="rs">XL</span><span class="rd">Large adult</span><span class="rc rc-adult">Adult</span></div>
+      <div class="hc-baseline"></div>
+      <div class="hc-fade-l"></div>
+      <div class="hc-fade-r"></div>
     </div>
   </div>
 </section>
@@ -396,7 +270,6 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(
     <h2 class="section-heading">Get the right fit in minutes</h2>
     <p class="section-sub">Measure your hand, enter the values below, and we'll recommend your exact Syrebo size.</p>
 
-    <!-- MEASURE + INPUT COMBINED -->
     <div class="flow-divider">
       <div class="flow-divider-num">1</div>
       <div class="flow-divider-text">Measure Your Hand &amp; Enter Values</div>
@@ -432,7 +305,6 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(
           </button>
         </div>
       </div>
-      <!-- RIGHT: measure guide -->
       <div class="measure-side">
         <div class="measure-mini-grid">
           <div class="mm-card">
@@ -453,11 +325,11 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(
       </div>
     </div>
 
-    <!-- RESULT (expands in-place) -->
+    <!-- RESULT -->
     <div class="result-wrap" id="resultWrap">
       <div class="result-inner">
         <div class="flow-divider">
-          <div class="flow-divider-num">3</div>
+          <div class="flow-divider-num">2</div>
           <div class="flow-divider-text">Your Recommended Size</div>
           <div class="flow-divider-line"></div>
         </div>
@@ -530,6 +402,7 @@ const HFACTOR=1.08;
 function gap(v,[a,b]){return v<a?a-v:v>b?v-b:0}
 function cd(v,[a,b]){return Math.abs(v-(a+b)/2)/((b-a)/2||1)}
 
+// Size calculator
 document.getElementById('calcBtn').addEventListener('click',function(){
   const len=parseFloat(document.getElementById('len').value);
   const wid=parseFloat(document.getElementById('wid').value);
@@ -540,7 +413,6 @@ document.getElementById('calcBtn').addEventListener('click',function(){
   if(!hasLen&&!hasHt){fLen.classList.add('err');err=true;}else fLen.classList.remove('err');
   if(!hasWid){fWid.classList.add('err');err=true;}else fWid.classList.remove('err');
   if(err){(!hasLen&&!hasHt?document.getElementById('len'):document.getElementById('wid')).focus();return;}
-
   const estimated=!hasLen, L=hasLen?len:Math.round(ht*HFACTOR);
   let best=null,bestScore=Infinity,exact=false;
   SIZES.forEach(o=>{
@@ -548,7 +420,6 @@ document.getElementById('calcBtn').addEventListener('click',function(){
     const score=g*1000+cd(L,o.l)+cd(wid,o.w);
     if(score<bestScore){bestScore=score;best=o;exact=(g===0);}
   });
-
   document.getElementById('resSize').textContent=best.s;
   document.getElementById('resCat').textContent=best.cat+(estimated?' · height estimate':' · measured');
   document.getElementById('rLen').textContent=L+' mm'+(estimated?' (est.)':'');
@@ -559,7 +430,6 @@ document.getElementById('calcBtn').addEventListener('click',function(){
     :(exact?'Your measurements fall comfortably within the '+best.cat+' '+best.s+' range.'
            :'Matched to the closest available size.');
   document.querySelectorAll('#refBody tr').forEach(r=>r.classList.toggle('hl',r.dataset.s===best.s));
-
   const wrap=document.getElementById('resultWrap');
   wrap.classList.add('open');
   setTimeout(()=>wrap.scrollIntoView({behavior:'smooth',block:'start'}),50);
@@ -583,30 +453,27 @@ document.getElementById('resetBtn').addEventListener('click',function(){
   });
 });
 
+// Header scroll shadow
 window.addEventListener('scroll',()=>document.querySelector('header').classList.toggle('scrolled',scrollY>10),{passive:true});
 
-// Range carousel
+// Hero carousel — Pointer Events drag (mouse + touch, silky smooth)
 (function(){
-  const track=document.getElementById('rangeTrack');
-  const labels=document.getElementById('rangeLabels');
-  const btnL=document.getElementById('raL');
-  const btnR=document.getElementById('raR');
+  const track=document.getElementById('hcTrack');
   if(!track)return;
-  const STEP=336;
-  function syncLabels(){labels.scrollLeft=track.scrollLeft;}
-  function updateArrows(){
-    btnL.disabled=track.scrollLeft<=1;
-    btnR.disabled=track.scrollLeft>=track.scrollWidth-track.clientWidth-1;
-  }
-  track.addEventListener('scroll',()=>{syncLabels();updateArrows();},{passive:true});
-  updateArrows();
-  btnL.addEventListener('click',()=>track.scrollBy({left:-STEP,behavior:'smooth'}));
-  btnR.addEventListener('click',()=>track.scrollBy({left:+STEP,behavior:'smooth'}));
-  // Drag to scroll
-  let drag=false,ox=0,os=0;
-  track.addEventListener('mousedown',e=>{drag=true;ox=e.pageX;os=track.scrollLeft;track.classList.add('grabbing');e.preventDefault();});
-  window.addEventListener('mousemove',e=>{if(!drag)return;track.scrollLeft=os-(e.pageX-ox);syncLabels();updateArrows();});
-  window.addEventListener('mouseup',()=>{drag=false;track.classList.remove('grabbing');});
+  let active=false, startX=0, startScroll=0;
+  track.addEventListener('pointerdown',e=>{
+    active=true;
+    startX=e.clientX;
+    startScroll=track.scrollLeft;
+    track.setPointerCapture(e.pointerId);
+    track.classList.add('dragging');
+  });
+  track.addEventListener('pointermove',e=>{
+    if(!active)return;
+    track.scrollLeft=startScroll-(e.clientX-startX);
+  });
+  track.addEventListener('pointerup',  ()=>{active=false;track.classList.remove('dragging');});
+  track.addEventListener('pointercancel',()=>{active=false;track.classList.remove('dragging');});
 })();
 </script>
 </body>

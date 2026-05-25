@@ -69,27 +69,30 @@ header.scrolled{box-shadow:0 6px 28px -14px rgba(10,37,64,.18)}
 .hero-glove-panel::after {right:0;background:linear-gradient(-90deg,#f8faff 20%,transparent)}
 @media(max-width:780px){.hero-glove-panel{display:none}}
 
-/* marquee track (shared for both hero panel & any future strip) */
+/* marquee inner scroll wrapper */
+.hgp-inner{overflow-x:scroll;overflow-y:hidden;scrollbar-width:none;height:100%}
+.hgp-inner::-webkit-scrollbar{display:none}
+/* arrow buttons */
+.hgp-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:10;
+  width:34px;height:34px;border-radius:50%;
+  border:1.5px solid rgba(20,82,230,.22);
+  background:rgba(255,255,255,.9);backdrop-filter:blur(8px);
+  box-shadow:0 2px 10px rgba(10,37,64,.13);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:var(--navy);padding:0;transition:.18s;
+}
+.hgp-arrow:hover{background:#fff;border-color:var(--blue);color:var(--blue);transform:translateY(-50%) scale(1.1)}
+.hgp-arrow.left{left:10px}
+.hgp-arrow.right{right:10px}
+/* row */
 .ss-row{
   display:flex;align-items:flex-end;
-  gap:20px;
-  padding:28px 20px 22px;
-  width:max-content;
-  animation:ss-marquee 22s linear infinite;
-  will-change:transform;
+  gap:20px;padding:28px 20px 22px;width:max-content;
 }
-.hero-glove-panel:hover .ss-row{animation-play-state:paused}
-@keyframes ss-marquee{
-  0%  {transform:translateX(0)}
-  100%{transform:translateX(-50%)}
-}
-.ss-item{
-  flex-shrink:0;
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-}
+.ss-item{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:6px}
 .ss-item img{
-  height:var(--h);
-  width:auto;max-width:none;
+  height:var(--h);width:auto;max-width:none;
   display:block;pointer-events:none;
   filter:drop-shadow(0 6px 14px rgba(10,37,64,.15));
 }
@@ -194,6 +197,10 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(
       </a>
     </div>
     <div class="hero-glove-panel">
+      <button class="hgp-arrow left" aria-label="Previous">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="hgp-inner">
       <div class="ss-row">
         <!-- set 1 -->
         <div class="ss-item orange" style="--h:80px"><img src="assets/hero-glove-orange.png" alt=""/><div class="ss-lbl"><b>1.5</b></div></div>
@@ -218,6 +225,10 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(
         <div class="ss-item" style="--h:176px"><img src="assets/hero-glove.png" alt=""/><div class="ss-lbl"><b>L</b></div></div>
         <div class="ss-item" style="--h:190px"><img src="assets/hero-glove.png" alt=""/><div class="ss-lbl"><b>XL</b></div></div>
       </div>
+      </div><!-- hgp-inner -->
+      <button class="hgp-arrow right" aria-label="Next">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
   </div>
 
@@ -414,6 +425,49 @@ document.getElementById('resetBtn').addEventListener('click',function(){
 });
 
 window.addEventListener('scroll',()=>document.querySelector('header').classList.toggle('scrolled',scrollY>10),{passive:true});
+
+/* ── Glove panel: auto-scroll + arrow buttons ── */
+(function(){
+  const panel = document.querySelector('.hero-glove-panel');
+  if(!panel) return;
+  const inner = panel.querySelector('.hgp-inner');
+  const row   = inner.querySelector('.ss-row');
+  let paused = false, pauseTimer = null;
+
+  function half(){ return row.scrollWidth / 2; }
+
+  /* rAF auto-scroll */
+  (function tick(){
+    if(!paused){
+      inner.scrollLeft += 0.55;
+      if(inner.scrollLeft >= half()) inner.scrollLeft -= half();
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  function pauseFor(ms){
+    paused = true;
+    clearTimeout(pauseTimer);
+    pauseTimer = setTimeout(()=>{ paused=false; pauseTimer=null; }, ms);
+  }
+
+  panel.querySelector('.hgp-arrow.left').addEventListener('click', ()=>{
+    pauseFor(3000);
+    let t = inner.scrollLeft - 200;
+    if(t < 0) t += half();
+    inner.scrollTo({ left: t, behavior:'smooth' });
+  });
+  panel.querySelector('.hgp-arrow.right').addEventListener('click', ()=>{
+    pauseFor(3000);
+    let t = inner.scrollLeft + 200;
+    if(t >= half()) t -= half();
+    inner.scrollTo({ left: t, behavior:'smooth' });
+  });
+
+  /* hover pause */
+  inner.addEventListener('mouseenter', ()=>{ paused=true; });
+  inner.addEventListener('mouseleave', ()=>{ if(!pauseTimer) paused=false; });
+})();
 
 </script>
 </body>

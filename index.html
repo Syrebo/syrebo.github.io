@@ -57,7 +57,7 @@ header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.18)}
 .btn-primary{background:linear-gradient(180deg,#1A5BEA,#1148CE);color:#fff;box-shadow:0 10px 24px -10px rgba(20,82,230,.55),0 1px 0 rgba(255,255,255,.22) inset}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 32px -12px rgba(20,82,230,.6)}
 .btn-primary:active{transform:none}
-.hero-visual{position:relative;display:flex;justify-content:center;align-items:center;min-height:520px}
+.hero-visual{position:relative;display:flex;justify-content:center;align-items:center;min-height:540px}
 .hero-glow{position:absolute;width:92%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(20,82,230,.15),transparent 65%)}
 .hero-ring{position:absolute;width:76%;aspect-ratio:1;border:1.5px dashed rgba(20,82,230,.2);border-radius:50%;animation:spin 40s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -68,7 +68,7 @@ header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.18)}
   display:flex;align-items:center;justify-content:center;pointer-events:none;
 }
 .spectrum-gloves{
-  position:absolute;left:1%;right:1%;bottom:92px;height:330px;
+  position:absolute;left:-3%;right:-3%;bottom:92px;height:390px;
   display:grid;grid-template-columns:repeat(5,1fr);align-items:end;
 }
 .spectrum-glove{
@@ -77,14 +77,14 @@ header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.18)}
   animation-delay:var(--delay);
 }
 .spectrum-glove::after{
-  content:"";position:absolute;bottom:5px;left:50%;width:64%;height:18px;
+  content:"";position:absolute;bottom:7px;left:50%;width:58%;height:16px;
   transform:translateX(-50%);border-radius:50%;
-  background:radial-gradient(ellipse,rgba(10,37,64,.18),rgba(10,37,64,0) 70%);
+  background:radial-gradient(ellipse,rgba(10,37,64,.16),rgba(10,37,64,0) 70%);
   filter:blur(2px);
 }
 .spectrum-glove img{
-  position:relative;z-index:1;width:var(--w);height:auto;
-  transform:rotate(var(--rot));
+  position:relative;z-index:1;width:var(--w-desktop);height:auto;
+  transform:translate(var(--shift),var(--lift));
   filter:drop-shadow(0 22px 30px rgba(10,37,64,.2));
 }
 .spectrum-glove.orange img{filter:drop-shadow(0 20px 28px rgba(178,82,0,.22))}
@@ -123,10 +123,10 @@ header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.18)}
   .hero-desc{margin-left:auto;margin-right:auto}
   .hero-copy-note{justify-content:center}
   .hero-copy-note::before{display:none}
-  .hero-visual{order:-1;min-height:330px}
+  .hero-visual{order:-1;min-height:340px}
   .size-spectrum{inset:0 -10px 8px}
-  .spectrum-gloves{left:-4%;right:-4%;bottom:72px;height:210px}
-  .spectrum-glove img{width:calc(var(--w) * .72)}
+  .spectrum-gloves{left:-6%;right:-6%;bottom:72px;height:230px}
+  .spectrum-glove img{width:var(--w-mobile)}
   .spectrum-scale{left:1%;right:1%;bottom:28px;height:54px}
   .spectrum-scale::before{bottom:29px}
   .scale-item::before{bottom:24px;height:10px}
@@ -257,19 +257,19 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(
       <div class="hero-ring"></div>
       <div class="size-spectrum" aria-hidden="true">
         <div class="spectrum-gloves">
-          <div class="spectrum-glove orange" style="--w:88px;--rot:-8deg;--delay:-.2s">
-            <img src="assets/kid-glove.png" alt=""/>
+          <div class="spectrum-glove orange" style="--w-desktop:64px;--w-mobile:50px;--shift:0px;--lift:0px;--delay:-.2s">
+            <img src="assets/hero-glove-orange.png" alt=""/>
           </div>
-          <div class="spectrum-glove orange" style="--w:112px;--rot:-4deg;--delay:-1s">
-            <img src="assets/kid-glove.png" alt=""/>
+          <div class="spectrum-glove orange" style="--w-desktop:94px;--w-mobile:68px;--shift:0px;--lift:0px;--delay:-1s">
+            <img src="assets/hero-glove-orange.png" alt=""/>
           </div>
-          <div class="spectrum-glove blue" style="--w:148px;--rot:0deg;--delay:-1.8s">
+          <div class="spectrum-glove blue" style="--w-desktop:126px;--w-mobile:86px;--shift:0px;--lift:0px;--delay:-1.8s">
             <img src="assets/hero-glove.png" alt=""/>
           </div>
-          <div class="spectrum-glove blue" style="--w:178px;--rot:4deg;--delay:-2.6s">
+          <div class="spectrum-glove blue" style="--w-desktop:178px;--w-mobile:106px;--shift:0px;--lift:0px;--delay:-2.6s">
             <img src="assets/hero-glove.png" alt=""/>
           </div>
-          <div class="spectrum-glove blue" style="--w:208px;--rot:8deg;--delay:-3.4s">
+          <div class="spectrum-glove blue" style="--w-desktop:240px;--w-mobile:126px;--shift:-10px;--lift:0px;--delay:-3.4s">
             <img src="assets/hero-glove.png" alt=""/>
           </div>
         </div>

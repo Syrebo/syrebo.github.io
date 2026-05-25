@@ -13,7 +13,6 @@
   --blue-tint:#EAF1FE;--blue-tint-2:#F4F8FF;
   --line:#E3EAF5;--muted:#5C7088;--ink:#11233b;
   --white:#fff;--maxw:1160px;
-  --ease:.55s cubic-bezier(.22,.9,.25,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -22,101 +21,87 @@ h1,h2,h3,h4{font-family:"Sora",sans-serif;letter-spacing:-.02em}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 
-/* NAV */
-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);transition:box-shadow .3s}
-header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.18)}
+/* ── NAV ── */
+header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 28px -14px rgba(10,37,64,.18)}
 .nav{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 28px}
 .logo img{height:36px;width:auto}
 .badges img{height:46px;width:auto;opacity:.9}
 @media(max-width:680px){.badges{display:none}}
 
-/* HERO */
+/* ── HERO ── */
 .hero{
-  position:relative;overflow:hidden;
-  padding:clamp(60px,8vw,100px) 0 0;
-  background:linear-gradient(160deg,#f0f5ff 0%,#fff 60%);
+  background:linear-gradient(165deg,#eef4ff 0%,#fff 58%);
+  padding:clamp(60px,7vw,96px) 28px 0;
+  overflow:hidden;position:relative;
 }
-.hero::after{
-  content:"";position:absolute;right:-180px;top:-120px;
-  width:700px;height:700px;border-radius:50%;
-  background:radial-gradient(circle,rgba(20,82,230,.11) 0%,transparent 68%);
-  pointer-events:none;
-}
-.hero-inner{
-  max-width:var(--maxw);margin:0 auto;
-  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;
-  padding:0 28px;
-}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;font-family:"Sora",sans-serif;font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);background:var(--blue-tint);padding:7px 16px;border-radius:999px;margin-bottom:22px}
+.hero::after{content:"";position:absolute;right:-200px;top:-160px;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(20,82,230,.1),transparent 66%);pointer-events:none}
+.hero-copy{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;position:relative;z-index:1}
+@media(max-width:780px){.hero-copy{grid-template-columns:1fr;text-align:center}}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-family:"Sora",sans-serif;font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);background:var(--blue-tint);padding:7px 16px;border-radius:999px;margin-bottom:20px}
 .hero-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue)}
-.hero h1{font-size:clamp(32px,4.4vw,58px);font-weight:800;color:var(--navy);line-height:1.1;margin-bottom:18px}
+.hero h1{font-size:clamp(30px,4.2vw,56px);font-weight:800;color:var(--navy);line-height:1.1;margin-bottom:16px}
 .hero h1 em{font-style:normal;color:var(--blue);position:relative}
 .hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:3px;height:8px;background:rgba(20,82,230,.15);z-index:-1;border-radius:3px}
-.hero-desc{font-size:clamp(14px,1.3vw,17px);color:var(--muted);line-height:1.7;max-width:460px;margin-bottom:32px}
+.hero-desc{font-size:clamp(14px,1.3vw,17px);color:var(--muted);line-height:1.7;max-width:440px;margin-bottom:30px}
 .hero-desc strong{color:var(--navy);font-weight:700}
+@media(max-width:780px){.hero-desc{margin-left:auto;margin-right:auto}.hero-tag{margin-left:auto;margin-right:auto}}
 .btn{display:inline-flex;align-items:center;gap:9px;cursor:pointer;font-family:"Sora",sans-serif;font-weight:600;font-size:14.5px;padding:14px 26px;border-radius:999px;border:0;transition:.22s;white-space:nowrap}
 .btn-primary{background:linear-gradient(180deg,#1A5BEA,#1148CE);color:#fff;box-shadow:0 10px 24px -10px rgba(20,82,230,.55),0 1px 0 rgba(255,255,255,.22) inset}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 32px -12px rgba(20,82,230,.6)}
 .btn-primary:active{transform:none}
 
-/* HERO CAROUSEL (right column) */
-.hero-visual{
-  position:relative;overflow:hidden;
-  padding-bottom:0;
-  /* no min-height — let carousel define it */
+/* hero right col: trust signal */
+.hero-trust{display:flex;flex-direction:column;align-items:center;gap:18px}
+.hero-trust img{width:min(340px,90%);filter:drop-shadow(0 8px 24px rgba(20,82,230,.12))}
+@media(max-width:780px){.hero-trust{display:none}}
+
+/* ── SIZE STRIP (full-width, all 10 visible) ── */
+.size-strip{
+  margin-top:clamp(40px,5vw,64px);
+  padding:0 clamp(16px,3vw,40px);
+  position:relative;z-index:1;
 }
-.hc-track{
-  display:flex;align-items:flex-end;gap:10px;
-  overflow-x:scroll;scrollbar-width:none;-webkit-overflow-scrolling:touch;
-  cursor:grab;user-select:none;
-  padding:32px 28px 0 0;   /* right pad to peek last item */
+.ss-row{
+  display:flex;align-items:flex-end;justify-content:center;
+  gap:clamp(3px,.8vw,12px);
 }
-.hc-track::-webkit-scrollbar{display:none}
-.hc-track.dragging{cursor:grabbing}
-.hc-item{
-  display:flex;flex-direction:column;align-items:center;
-  flex-shrink:0;gap:8px;
-  padding-bottom:20px;
-  transition:transform .22s;
+.ss-item{
+  flex-shrink:1;flex-grow:0;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  padding-bottom:18px;
+  transition:transform .2s;
 }
-.hc-item:hover{transform:translateY(-7px)}
-.hc-item img{
-  width:auto;max-width:none; /* critical: no width squash */
+.ss-item:hover{transform:translateY(-8px)}
+.ss-item img{
+  height:var(--h);        /* set inline */
+  width:auto;max-width:none;
   display:block;pointer-events:none;
-  filter:drop-shadow(0 10px 22px rgba(10,37,64,.2));
+  filter:drop-shadow(0 8px 18px rgba(10,37,64,.18));
 }
-.hc-item.orange img{filter:drop-shadow(0 10px 20px rgba(170,80,0,.2))}
-.hc-lbl{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
-.hc-lbl b{font-family:"Sora",sans-serif;font-weight:800;font-size:13px;color:var(--navy)}
-.hc-lbl small{font-size:10px;color:var(--muted);white-space:nowrap}
-/* fade edges */
-.hc-fade-l{position:absolute;left:0;top:0;bottom:0;width:28px;pointer-events:none;z-index:2;background:linear-gradient(90deg,rgba(240,245,255,.9),transparent)}
-.hc-fade-r{position:absolute;right:0;top:0;bottom:0;width:48px;pointer-events:none;z-index:2;background:linear-gradient(-90deg,rgba(255,255,255,.85),transparent)}
-/* baseline under track */
-.hc-baseline{height:2px;margin:0 0 0 0;background:linear-gradient(90deg,rgba(20,82,230,.08),rgba(20,82,230,.18) 40%,rgba(255,138,31,.28) 65%,rgba(20,82,230,.12) 100%)}
-
-@media(max-width:820px){
-  .hero-inner{grid-template-columns:1fr;padding-bottom:0}
-  .hero-desc{margin-left:auto;margin-right:auto}
-  .hero-visual{order:-1}
-  .hc-track{padding:20px 20px 0 20px}
-  .hero-tag{margin-left:auto;margin-right:auto}
+.ss-item.orange img{filter:drop-shadow(0 8px 15px rgba(150,68,0,.2))}
+.ss-lbl{display:flex;flex-direction:column;align-items:center;gap:1px;text-align:center;white-space:nowrap}
+.ss-lbl b{font-family:"Sora",sans-serif;font-weight:800;font-size:clamp(10px,.9vw,13px);color:var(--navy)}
+.ss-lbl small{font-size:clamp(8px,.7vw,10.5px);color:var(--muted)}
+.ss-baseline{
+  height:2px;
+  background:linear-gradient(90deg,transparent 1%,rgba(20,82,230,.12) 20%,rgba(255,140,30,.25) 55%,rgba(20,82,230,.14) 82%,transparent 99%);
+  margin:0 clamp(16px,3vw,40px);
+}
+@media(max-width:640px){
+  .ss-item img{height:calc(var(--h) * .65)}
 }
 
-/* TOOL SECTION */
+/* ── TOOL SECTION ── */
 .tool-section{padding:clamp(64px,8vw,100px) 28px clamp(80px,10vw,120px);background:#fff}
 .tool-inner{max-width:var(--maxw);margin:0 auto}
 .section-label{font-family:"Sora",sans-serif;font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
 .section-heading{font-size:clamp(26px,3.4vw,40px);font-weight:800;color:var(--navy);margin-bottom:10px;line-height:1.15}
 .section-sub{color:var(--muted);font-size:16px;max-width:540px;line-height:1.6}
-
-/* DIVIDER */
 .flow-divider{display:flex;align-items:center;gap:16px;margin:52px 0 44px}
 .flow-divider-num{width:40px;height:40px;border-radius:12px;background:var(--navy);color:#fff;font-family:"Sora",sans-serif;font-weight:700;font-size:17px;display:grid;place-items:center;flex-shrink:0}
 .flow-divider-text{font-family:"Sora",sans-serif;font-weight:700;font-size:20px;color:var(--navy)}
 .flow-divider-line{flex:1;height:1px;background:var(--line)}
-
-/* INPUT SECTION */
 .input-layout{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
 @media(max-width:720px){.input-layout{grid-template-columns:1fr}}
 .field{margin-bottom:18px}
@@ -133,8 +118,6 @@ header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.18)}
 .orline::before,.orline::after{content:"";flex:1;height:1px;background:var(--line)}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .calc-row{margin-top:8px}
-
-/* MEASURE SIDE */
 .measure-side{display:flex;flex-direction:column;gap:16px}
 .measure-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .mm-card{background:var(--blue-tint-2);border:1px solid var(--line);border-radius:18px;padding:16px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
@@ -144,8 +127,6 @@ header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.18)}
 .mm-card p{color:var(--muted);font-size:11.5px;line-height:1.5}
 .measure-tip{display:flex;align-items:flex-start;gap:8px;font-size:12.5px;color:var(--muted);line-height:1.55;padding:12px 14px;background:var(--blue-tint-2);border:1px solid var(--line);border-radius:12px}
 .measure-tip svg{flex-shrink:0;color:var(--blue);margin-top:1px}
-
-/* RESULT */
 .result-wrap{margin-top:0;max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.22,.9,.25,1),opacity .4s;opacity:0}
 .result-wrap.open{max-height:800px;opacity:1}
 .result-inner{padding-top:44px}
@@ -175,7 +156,7 @@ tbody tr.hl td:first-child{color:var(--blue)}
 .btn-text{background:none;border:0;color:var(--muted);font-family:"Manrope",sans-serif;font-size:13.5px;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px}
 .btn-text:hover{color:var(--blue)}
 
-/* FOOTER */
+/* ── FOOTER ── */
 footer{padding:44px 28px;border-top:1px solid var(--line);background:#fff}
 .foot{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
 .foot .logo img{height:30px}
@@ -198,8 +179,9 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-inner">
-    <!-- LEFT: copy -->
+
+  <!-- copy row -->
+  <div class="hero-copy">
     <div>
       <div class="hero-tag">Smart Sizing Tool</div>
       <h1>Find Your <em>Perfect Fit</em><br>with Syrebo</h1>
@@ -208,58 +190,58 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
-
-    <!-- RIGHT: size carousel -->
-    <div class="hero-visual">
-      <div class="hc-track" id="hcTrack">
-        <!-- Kids (orange) — sizes 1.5 → 12, heights 76→148px proportional to hand length midpoint -->
-        <div class="hc-item orange">
-          <img src="assets/kid-glove.png" style="height:76px" alt="1.5"/>
-          <div class="hc-lbl"><b>1.5</b><small>Infant</small></div>
-        </div>
-        <div class="hc-item orange">
-          <img src="assets/kid-glove.png" style="height:93px" alt="3"/>
-          <div class="hc-lbl"><b>3</b><small>Toddler</small></div>
-        </div>
-        <div class="hc-item orange">
-          <img src="assets/kid-glove.png" style="height:107px" alt="5"/>
-          <div class="hc-lbl"><b>5</b><small>Small kid</small></div>
-        </div>
-        <div class="hc-item orange">
-          <img src="assets/kid-glove.png" style="height:119px" alt="7"/>
-          <div class="hc-lbl"><b>7</b><small>Kid</small></div>
-        </div>
-        <div class="hc-item orange">
-          <img src="assets/kid-glove.png" style="height:130px" alt="9"/>
-          <div class="hc-lbl"><b>9</b><small>Pre-teen</small></div>
-        </div>
-        <div class="hc-item orange">
-          <img src="assets/kid-glove.png" style="height:141px" alt="12"/>
-          <div class="hc-lbl"><b>12</b><small>Large kid</small></div>
-        </div>
-        <!-- Adults (blue) — sizes S → XL, heights 154→210px -->
-        <div class="hc-item">
-          <img src="assets/hero-glove.png" style="height:154px" alt="S"/>
-          <div class="hc-lbl"><b>S</b><small>Small adult</small></div>
-        </div>
-        <div class="hc-item">
-          <img src="assets/hero-glove.png" style="height:174px" alt="M"/>
-          <div class="hc-lbl"><b>M</b><small>Medium</small></div>
-        </div>
-        <div class="hc-item">
-          <img src="assets/hero-glove.png" style="height:192px" alt="L"/>
-          <div class="hc-lbl"><b>L</b><small>Standard adult</small></div>
-        </div>
-        <div class="hc-item">
-          <img src="assets/hero-glove.png" style="height:210px" alt="XL"/>
-          <div class="hc-lbl"><b>XL</b><small>Large adult</small></div>
-        </div>
-      </div>
-      <div class="hc-baseline"></div>
-      <div class="hc-fade-l"></div>
-      <div class="hc-fade-r"></div>
+    <div class="hero-trust">
+      <img src="assets/trust-badges.png" alt="80+ countries · 4000+ medical units · 60000+ families"/>
     </div>
   </div>
+
+  <!-- size strip: all 10 visible, bottom-aligned, left→right small→large -->
+  <div class="size-strip">
+    <div class="ss-row">
+      <div class="ss-item orange" style="--h:72px">
+        <img src="assets/kid-glove.png" alt="1.5"/>
+        <div class="ss-lbl"><b>1.5</b><small>Infant</small></div>
+      </div>
+      <div class="ss-item orange" style="--h:89px">
+        <img src="assets/kid-glove.png" alt="3"/>
+        <div class="ss-lbl"><b>3</b><small>Toddler</small></div>
+      </div>
+      <div class="ss-item orange" style="--h:103px">
+        <img src="assets/kid-glove.png" alt="5"/>
+        <div class="ss-lbl"><b>5</b><small>Small kid</small></div>
+      </div>
+      <div class="ss-item orange" style="--h:115px">
+        <img src="assets/kid-glove.png" alt="7"/>
+        <div class="ss-lbl"><b>7</b><small>Kid</small></div>
+      </div>
+      <div class="ss-item orange" style="--h:126px">
+        <img src="assets/kid-glove.png" alt="9"/>
+        <div class="ss-lbl"><b>9</b><small>Pre-teen</small></div>
+      </div>
+      <div class="ss-item orange" style="--h:137px">
+        <img src="assets/kid-glove.png" alt="12"/>
+        <div class="ss-lbl"><b>12</b><small>Large kid</small></div>
+      </div>
+      <div class="ss-item" style="--h:150px">
+        <img src="assets/hero-glove.png" alt="S"/>
+        <div class="ss-lbl"><b>S</b><small>Small adult</small></div>
+      </div>
+      <div class="ss-item" style="--h:170px">
+        <img src="assets/hero-glove.png" alt="M"/>
+        <div class="ss-lbl"><b>M</b><small>Medium</small></div>
+      </div>
+      <div class="ss-item" style="--h:188px">
+        <img src="assets/hero-glove.png" alt="L"/>
+        <div class="ss-lbl"><b>L</b><small>Standard</small></div>
+      </div>
+      <div class="ss-item" style="--h:206px">
+        <img src="assets/hero-glove.png" alt="XL"/>
+        <div class="ss-lbl"><b>XL</b><small>Large adult</small></div>
+      </div>
+    </div>
+    <div class="ss-baseline"></div>
+  </div>
+
 </section>
 
 <!-- TOOL -->
@@ -402,18 +384,17 @@ const HFACTOR=1.08;
 function gap(v,[a,b]){return v<a?a-v:v>b?v-b:0}
 function cd(v,[a,b]){return Math.abs(v-(a+b)/2)/((b-a)/2||1)}
 
-// Size calculator
 document.getElementById('calcBtn').addEventListener('click',function(){
   const len=parseFloat(document.getElementById('len').value);
   const wid=parseFloat(document.getElementById('wid').value);
   const ht =parseFloat(document.getElementById('ht').value);
-  const fLen=document.getElementById('fLen'), fWid=document.getElementById('fWid');
-  const hasLen=len>0, hasWid=wid>0, hasHt=ht>0;
+  const fLen=document.getElementById('fLen'),fWid=document.getElementById('fWid');
+  const hasLen=len>0,hasWid=wid>0,hasHt=ht>0;
   let err=false;
   if(!hasLen&&!hasHt){fLen.classList.add('err');err=true;}else fLen.classList.remove('err');
   if(!hasWid){fWid.classList.add('err');err=true;}else fWid.classList.remove('err');
   if(err){(!hasLen&&!hasHt?document.getElementById('len'):document.getElementById('wid')).focus();return;}
-  const estimated=!hasLen, L=hasLen?len:Math.round(ht*HFACTOR);
+  const estimated=!hasLen,L=hasLen?len:Math.round(ht*HFACTOR);
   let best=null,bestScore=Infinity,exact=false;
   SIZES.forEach(o=>{
     const g=gap(L,o.l)+gap(wid,o.w);
@@ -453,28 +434,7 @@ document.getElementById('resetBtn').addEventListener('click',function(){
   });
 });
 
-// Header scroll shadow
 window.addEventListener('scroll',()=>document.querySelector('header').classList.toggle('scrolled',scrollY>10),{passive:true});
-
-// Hero carousel — Pointer Events drag (mouse + touch, silky smooth)
-(function(){
-  const track=document.getElementById('hcTrack');
-  if(!track)return;
-  let active=false, startX=0, startScroll=0;
-  track.addEventListener('pointerdown',e=>{
-    active=true;
-    startX=e.clientX;
-    startScroll=track.scrollLeft;
-    track.setPointerCapture(e.pointerId);
-    track.classList.add('dragging');
-  });
-  track.addEventListener('pointermove',e=>{
-    if(!active)return;
-    track.scrollLeft=startScroll-(e.clientX-startX);
-  });
-  track.addEventListener('pointerup',  ()=>{active=false;track.classList.remove('dragging');});
-  track.addEventListener('pointercancel',()=>{active=false;track.classList.remove('dragging');});
-})();
 </script>
 </body>
 </html>

@@ -135,6 +135,65 @@ header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.18)}
   .hero-tag{margin-left:auto;margin-right:auto}
 }
 
+/* RANGE CAROUSEL */
+.range-section{padding:clamp(52px,6vw,80px) 0 clamp(60px,7vw,88px);background:linear-gradient(180deg,#f4f8ff 0%,#fff 100%);overflow:hidden}
+.range-inner{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.range-outer{position:relative;margin-top:40px}
+.range-track{
+  display:flex;align-items:flex-end;gap:0;
+  overflow-x:auto;scroll-behavior:smooth;
+  padding:16px 56px 0;
+  scrollbar-width:none;-ms-overflow-style:none;
+  cursor:grab;
+}
+.range-track::-webkit-scrollbar{display:none}
+.range-track.grabbing{cursor:grabbing;scroll-behavior:auto}
+.range-item{
+  display:flex;flex-direction:column;align-items:center;
+  flex-shrink:0;width:112px;
+  transition:transform .25s;
+}
+.range-item:hover{transform:translateY(-8px)}
+.range-img-wrap{
+  display:flex;align-items:flex-end;justify-content:center;
+  width:100%;height:270px;
+}
+.range-img-wrap img{
+  object-fit:contain;object-position:bottom center;
+  width:auto;max-width:100%;display:block;pointer-events:none;
+  filter:drop-shadow(0 10px 18px rgba(10,37,64,.18));
+}
+.range-floor{height:2px;background:linear-gradient(90deg,transparent 0%,rgba(20,82,230,.15) 12%,rgba(255,138,31,.3) 50%,rgba(20,82,230,.2) 88%,transparent 100%);margin:0 56px}
+.range-labels{display:flex;padding:0 56px;overflow:hidden;pointer-events:none}
+.range-label{
+  width:112px;flex-shrink:0;
+  display:flex;flex-direction:column;align-items:center;
+  padding-top:10px;gap:3px;text-align:center;
+}
+.range-label .rs{font-family:"Sora",sans-serif;font-weight:800;font-size:15px;color:var(--navy)}
+.range-label .rd{font-size:11px;color:var(--muted);line-height:1.35}
+.range-label .rc{font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px;margin-top:2px}
+.rc-kid{color:#B35F00;background:#FFF0DF}
+.rc-adult{color:var(--blue);background:var(--blue-tint)}
+.ra-btn{
+  position:absolute;top:calc(50% - 20px);transform:translateY(-50%);
+  width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);
+  background:rgba(255,255,255,.95);color:var(--navy);display:grid;place-items:center;
+  cursor:pointer;z-index:3;transition:.2s;box-shadow:0 4px 16px -6px rgba(10,37,64,.18);
+}
+.ra-btn:hover{border-color:var(--blue);color:var(--blue);box-shadow:0 6px 22px -6px rgba(20,82,230,.28)}
+.ra-btn.left{left:6px}
+.ra-btn.right{right:6px}
+.ra-btn:disabled{opacity:.25;cursor:default;pointer-events:none}
+@media(max-width:680px){
+  .range-item{width:88px}
+  .range-label{width:88px}
+  .range-img-wrap{height:200px}
+  .range-labels,.range-track{padding-left:40px;padding-right:40px}
+  .range-floor{margin:0 40px}
+  .ra-btn.left{left:0}.ra-btn.right{right:0}
+}
+
 /* TOOL SECTION */
 .tool-section{padding:clamp(64px,8vw,100px) 28px clamp(80px,10vw,120px);background:#fff}
 .tool-inner{max-width:var(--maxw);margin:0 auto}
@@ -283,6 +342,48 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(
         <div class="spectrum-caption">Hand Size Spectrum</div>
       </div>
       <img class="hero-glove" src="assets/hero-duo.png" alt="Syrebo rehabilitation gloves — adult and child sizes"/>
+    </div>
+  </div>
+</section>
+
+<!-- SIZE RANGE CAROUSEL -->
+<section class="range-section">
+  <div class="range-inner">
+    <div class="section-label">Complete Size Range</div>
+    <h2 class="section-heading">10 sizes · every hand</h2>
+    <p class="section-sub">From infant to extra-large — drag or use arrows to explore.</p>
+    <div class="range-outer">
+      <button class="ra-btn left" id="raL" aria-label="Scroll left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="range-track" id="rangeTrack">
+        <div class="range-item"><div class="range-img-wrap"><img src="assets/kid-glove.png" style="height:106px" alt="1.5"/></div></div>
+        <div class="range-item"><div class="range-img-wrap"><img src="assets/kid-glove.png" style="height:127px" alt="3"/></div></div>
+        <div class="range-item"><div class="range-img-wrap"><img src="assets/kid-glove.png" style="height:144px" alt="5"/></div></div>
+        <div class="range-item"><div class="range-img-wrap"><img src="assets/kid-glove.png" style="height:158px" alt="7"/></div></div>
+        <div class="range-item"><div class="range-img-wrap"><img src="assets/kid-glove.png" style="height:170px" alt="9"/></div></div>
+        <div class="range-item"><div class="range-img-wrap"><img src="assets/kid-glove.png" style="height:182px" alt="12"/></div></div>
+        <div class="range-item"><div class="range-img-wrap"><img src="assets/hero-glove.png" style="height:196px" alt="S"/></div></div>
+        <div class="range-item"><div class="range-img-wrap"><img src="assets/hero-glove.png" style="height:218px" alt="M"/></div></div>
+        <div class="range-item"><div class="range-img-wrap"><img src="assets/hero-glove.png" style="height:240px" alt="L"/></div></div>
+        <div class="range-item"><div class="range-img-wrap"><img src="assets/hero-glove.png" style="height:260px" alt="XL"/></div></div>
+      </div>
+      <button class="ra-btn right" id="raR" aria-label="Scroll right">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="range-floor"></div>
+    <div class="range-labels" id="rangeLabels">
+      <div class="range-label"><span class="rs">1.5</span><span class="rd">Infant</span><span class="rc rc-kid">Kids</span></div>
+      <div class="range-label"><span class="rs">3</span><span class="rd">Toddler</span><span class="rc rc-kid">Kids</span></div>
+      <div class="range-label"><span class="rs">5</span><span class="rd">Small kid</span><span class="rc rc-kid">Kids</span></div>
+      <div class="range-label"><span class="rs">7</span><span class="rd">Kid</span><span class="rc rc-kid">Kids</span></div>
+      <div class="range-label"><span class="rs">9</span><span class="rd">Pre-teen</span><span class="rc rc-kid">Kids</span></div>
+      <div class="range-label"><span class="rs">12</span><span class="rd">Large kid</span><span class="rc rc-kid">Kids</span></div>
+      <div class="range-label"><span class="rs">S</span><span class="rd">Small adult</span><span class="rc rc-adult">Adult</span></div>
+      <div class="range-label"><span class="rs">M</span><span class="rd">Medium</span><span class="rc rc-adult">Adult</span></div>
+      <div class="range-label"><span class="rs">L</span><span class="rd">Standard</span><span class="rc rc-adult">Adult</span></div>
+      <div class="range-label"><span class="rs">XL</span><span class="rd">Large adult</span><span class="rc rc-adult">Adult</span></div>
     </div>
   </div>
 </section>
@@ -483,6 +584,30 @@ document.getElementById('resetBtn').addEventListener('click',function(){
 });
 
 window.addEventListener('scroll',()=>document.querySelector('header').classList.toggle('scrolled',scrollY>10),{passive:true});
+
+// Range carousel
+(function(){
+  const track=document.getElementById('rangeTrack');
+  const labels=document.getElementById('rangeLabels');
+  const btnL=document.getElementById('raL');
+  const btnR=document.getElementById('raR');
+  if(!track)return;
+  const STEP=336;
+  function syncLabels(){labels.scrollLeft=track.scrollLeft;}
+  function updateArrows(){
+    btnL.disabled=track.scrollLeft<=1;
+    btnR.disabled=track.scrollLeft>=track.scrollWidth-track.clientWidth-1;
+  }
+  track.addEventListener('scroll',()=>{syncLabels();updateArrows();},{passive:true});
+  updateArrows();
+  btnL.addEventListener('click',()=>track.scrollBy({left:-STEP,behavior:'smooth'}));
+  btnR.addEventListener('click',()=>track.scrollBy({left:+STEP,behavior:'smooth'}));
+  // Drag to scroll
+  let drag=false,ox=0,os=0;
+  track.addEventListener('mousedown',e=>{drag=true;ox=e.pageX;os=track.scrollLeft;track.classList.add('grabbing');e.preventDefault();});
+  window.addEventListener('mousemove',e=>{if(!drag)return;track.scrollLeft=os-(e.pageX-ox);syncLabels();updateArrows();});
+  window.addEventListener('mouseup',()=>{drag=false;track.classList.remove('grabbing');});
+})();
 </script>
 </body>
 </html>

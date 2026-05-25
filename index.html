@@ -68,18 +68,17 @@ header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.18)}
   display:flex;align-items:center;justify-content:center;pointer-events:none;
 }
 .spectrum-hands{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-.hand-outline{
-  position:absolute;bottom:118px;left:50%;width:118px;height:168px;
+.hand-shadow{
+  position:absolute;bottom:112px;left:50%;width:148px;
   transform:translateX(calc(-50% + var(--x))) scale(var(--scale));
-  transform-origin:50% 100%;opacity:var(--alpha);
-  color:var(--blue);filter:drop-shadow(0 18px 26px rgba(20,82,230,.08));
+  transform-origin:50% 100%;opacity:var(--alpha);mix-blend-mode:multiply;
+  filter:blur(.15px) drop-shadow(0 18px 30px rgba(10,37,64,.08)) saturate(.92);
   animation:spectrum-breathe 6.5s ease-in-out infinite;
   animation-delay:var(--delay);
 }
-.hand-outline.orange{color:var(--orange)}
-.hand-outline svg{width:100%;height:100%;overflow:visible}
-.hand-outline path{fill:rgba(255,255,255,.38);stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.hand-outline .palm-line{fill:none;stroke:currentColor;stroke-width:1.1;opacity:.35}
+.hand-shadow img{width:100%;height:auto;opacity:.78}
+.hand-shadow.blue img{filter:hue-rotate(180deg) saturate(.8) brightness(1.12)}
+.hand-shadow.orange img{filter:hue-rotate(332deg) saturate(.88) brightness(1.08)}
 @keyframes spectrum-breathe{
   0%,100%{opacity:var(--alpha);transform:translateX(calc(-50% + var(--x))) scale(var(--scale))}
   50%{opacity:calc(var(--alpha) + .1);transform:translateX(calc(-50% + var(--x))) scale(calc(var(--scale) * 1.025))}
@@ -116,7 +115,7 @@ header.scrolled{box-shadow:0 8px 32px -16px rgba(10,37,64,.18)}
   .hero-copy-note::before{display:none}
   .hero-visual{order:-1;min-height:330px}.hero-glove{width:min(245px,58%)}
   .size-spectrum{inset:0 -10px 8px}
-  .hand-outline{bottom:82px;width:82px;height:118px}
+  .hand-shadow{bottom:77px;width:104px}
   .spectrum-scale{left:1%;right:1%;bottom:28px;height:54px}
   .spectrum-scale::before{bottom:29px}
   .scale-item::before{bottom:24px;height:10px}
@@ -247,35 +246,20 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid rgba(
       <div class="hero-ring"></div>
       <div class="size-spectrum" aria-hidden="true">
         <div class="spectrum-hands">
-          <div class="hand-outline" style="--x:-178px;--scale:.72;--alpha:.32;--delay:-.2s">
-            <svg viewBox="0 0 96 142">
-              <path d="M43 137c-15-7-22-20-22-39V59c0-5 3-8 7-8s7 3 7 8v26-57c0-5 3-8 7-8s7 3 7 8v54-67c0-5 3-8 7-8s7 3 7 8v68-51c0-5 3-8 7-8s7 3 7 8v58l6-13c2-5 7-7 11-5s5 7 3 12l-13 34c-7 18-22 25-38 19Z"/>
-              <path class="palm-line" d="M31 93c15 12 34 12 50 0M39 111c9 7 22 7 33 0"/>
-            </svg>
+          <div class="hand-shadow blue" style="--x:-178px;--scale:.64;--alpha:.26;--delay:-.2s">
+            <img src="assets/hand-palm-shadow.png" alt=""/>
           </div>
-          <div class="hand-outline orange" style="--x:-86px;--scale:.88;--alpha:.3;--delay:-1s">
-            <svg viewBox="0 0 96 142">
-              <path d="M43 137c-15-7-22-20-22-39V59c0-5 3-8 7-8s7 3 7 8v26-57c0-5 3-8 7-8s7 3 7 8v54-67c0-5 3-8 7-8s7 3 7 8v68-51c0-5 3-8 7-8s7 3 7 8v58l6-13c2-5 7-7 11-5s5 7 3 12l-13 34c-7 18-22 25-38 19Z"/>
-              <path class="palm-line" d="M31 93c15 12 34 12 50 0M39 111c9 7 22 7 33 0"/>
-            </svg>
+          <div class="hand-shadow orange" style="--x:-88px;--scale:.78;--alpha:.24;--delay:-1s">
+            <img src="assets/hand-palm-shadow.png" alt=""/>
           </div>
-          <div class="hand-outline" style="--x:0px;--scale:1.04;--alpha:.26;--delay:-1.8s">
-            <svg viewBox="0 0 96 142">
-              <path d="M43 137c-15-7-22-20-22-39V59c0-5 3-8 7-8s7 3 7 8v26-57c0-5 3-8 7-8s7 3 7 8v54-67c0-5 3-8 7-8s7 3 7 8v68-51c0-5 3-8 7-8s7 3 7 8v58l6-13c2-5 7-7 11-5s5 7 3 12l-13 34c-7 18-22 25-38 19Z"/>
-              <path class="palm-line" d="M31 93c15 12 34 12 50 0M39 111c9 7 22 7 33 0"/>
-            </svg>
+          <div class="hand-shadow blue" style="--x:2px;--scale:.92;--alpha:.2;--delay:-1.8s">
+            <img src="assets/hand-palm-shadow.png" alt=""/>
           </div>
-          <div class="hand-outline orange" style="--x:92px;--scale:1.2;--alpha:.24;--delay:-2.6s">
-            <svg viewBox="0 0 96 142">
-              <path d="M43 137c-15-7-22-20-22-39V59c0-5 3-8 7-8s7 3 7 8v26-57c0-5 3-8 7-8s7 3 7 8v54-67c0-5 3-8 7-8s7 3 7 8v68-51c0-5 3-8 7-8s7 3 7 8v58l6-13c2-5 7-7 11-5s5 7 3 12l-13 34c-7 18-22 25-38 19Z"/>
-              <path class="palm-line" d="M31 93c15 12 34 12 50 0M39 111c9 7 22 7 33 0"/>
-            </svg>
+          <div class="hand-shadow orange" style="--x:96px;--scale:1.06;--alpha:.2;--delay:-2.6s">
+            <img src="assets/hand-palm-shadow.png" alt=""/>
           </div>
-          <div class="hand-outline" style="--x:190px;--scale:1.36;--alpha:.2;--delay:-3.4s">
-            <svg viewBox="0 0 96 142">
-              <path d="M43 137c-15-7-22-20-22-39V59c0-5 3-8 7-8s7 3 7 8v26-57c0-5 3-8 7-8s7 3 7 8v54-67c0-5 3-8 7-8s7 3 7 8v68-51c0-5 3-8 7-8s7 3 7 8v58l6-13c2-5 7-7 11-5s5 7 3 12l-13 34c-7 18-22 25-38 19Z"/>
-              <path class="palm-line" d="M31 93c15 12 34 12 50 0M39 111c9 7 22 7 33 0"/>
-            </svg>
+          <div class="hand-shadow blue" style="--x:194px;--scale:1.22;--alpha:.17;--delay:-3.4s">
+            <img src="assets/hand-palm-shadow.png" alt=""/>
           </div>
         </div>
         <div class="spectrum-scale">
